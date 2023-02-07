@@ -1,0 +1,4 @@
+name: HideAndSeek
+version: '${project.version}'
+main: de.theredend2000.hideandseek.Main
+api-version: 1.19
