@@ -1,7 +1,7 @@
 #Settings
 Settings:
   #Minimum Player count
-  MinPLayerCount
+  MinPLayerCount:
   #Max Player per Game
   MaxPlayercount: 10
   #Time in seconds
