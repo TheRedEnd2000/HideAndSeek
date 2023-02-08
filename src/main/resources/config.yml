@@ -25,8 +25,9 @@ Settings:
 
 #Massages
 Messages:
-  Permission:
-    PermissionJoinTheGame: You aren´t allowed to join this game.
-    PermissionPvPHider: You cant hit him, he´s in your team.
-    PermissionAbility: You cant use this ability.
+  NoPermissionMessage: '&cYou do not have the right permission to use this'
+
+#Permission
+Permissions:
+  CreateSignToJoinPermission: hideandseek.createsign
 
