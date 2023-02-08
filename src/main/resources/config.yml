@@ -12,16 +12,11 @@ Settings:
   SwitchTeam: false
   #Time the Hider get to Hide before the Seeker will spawn(Time in seconds)
   SeekerTimetospawn: 30
-  #If enabled, switch to Spactator mode after death ingame(false = Not/ true = Yes)
+  #If enabled, switch to Spectator mode after death ingame(false = Not/ true = Yes)
   Spectatormode: true
-  #What happents when you join a Game which already started. If set to false you wont be able to join a running Game,else you would.(true)
+  #What happends when you join a Game which already started. If set to false you wont be able to join a running Game,else you would.(true)
   JoinRunningGame:
      #If you enable to join the running game, here you can choose which team you or other players will be in.(Set the one you like to true the rest to false)
-    JoinTheRunningGameasHider: false
-    JoinTheRunningGameasSeeker: false
     JoinTheRunningGameasSpectator: true
-  #Where the Hider´s Spawn on the Map(Random[True] or all on the same spot[false])
-  RandomizedSpwaningHider: true
-  RandomizedSpwaning: false
-#Enable Ability´s
-Abillity: false
+  #Enable Ability´s
+  Abillity: false
