@@ -1,7 +1,7 @@
 #Settings
 Settings:
   #Minimum Player count
-  MinPLayerCount:
+  MinPlayerCount:
   #Max Player per Game
   MaxPlayerCount: 10
   #Time in seconds
@@ -22,3 +22,11 @@ Settings:
     JoinTheRunningGameAsSpectator: true
   #Enable Ability´s
   Ability: false
+
+#Massages
+Messages:
+  Permission:
+    PermissionJoinTheGame: You aren´t allowed to join this game.
+    PermissionPvPHider: You cant hit him, he´s in your team.
+    PermissionAbility: You cant use this ability.
+

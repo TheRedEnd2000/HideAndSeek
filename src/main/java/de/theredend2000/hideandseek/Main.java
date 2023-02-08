@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public final class Main extends JavaPlugin {
 
-    public static final String PREFIX = " §r";
+    public static final String PREFIX = " §e[§r§k§OA§r$4Hide§0-§r§5and§0-§r§2Seek§r§e]§r";
 
     private JoinGameManager joinGameManager;
     private GameStateManager gameStateManager;
