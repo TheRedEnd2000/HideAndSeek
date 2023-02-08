@@ -40,7 +40,7 @@ public class JoinGameEvent implements Listener {
                 event.setLine(3, "§b-=-=-=-");
             }
         }else
-            event.getPlayer().sendMessage(Main.NO_PERMISSION);
+            event.getPlayer().sendMessage(Objects.requireNonNull(plugin.getConfig().getString("Messages.NoPermissionMessage")));
     }
 
     @EventHandler
