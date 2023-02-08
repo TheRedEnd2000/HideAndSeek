@@ -19,10 +19,6 @@ public class JoinGameManager {
     }
 
     public void joinGame(Player player){
-        if(plugin.getGameStateManager().getCurrentGameState() == null){
-            player.sendMessage(Main.PREFIX+"§cSomething failed");
-            return;
-        }
         if(plugin.getGameStateManager().getCurrentGameState() instanceof IngameState || plugin.getGameStateManager().getCurrentGameState() instanceof EndingState){
 
             //ADD PLAYER TO SPECTATOR

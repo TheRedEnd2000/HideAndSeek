@@ -51,7 +51,7 @@ public class JoinGameEvent implements Listener {
         if(event.getClickedBlock().getState() instanceof Sign) {
             String warp = ((Sign) event.getClickedBlock().getState()).getLine(2);
             String warp2 = ((Sign) event.getClickedBlock().getState()).getLine(1);
-            if (warp.equalsIgnoreCase("§aClick to Join") && warp2.equalsIgnoreCase("§6[§4Hide and Seek§6]]")) {
+            if (warp.equalsIgnoreCase("§aClick to Join") && warp2.equalsIgnoreCase("§6[§4Hide and Seek§6]")) {
                 plugin.getJoinGameManager().joinGame(player);
             }
         }
