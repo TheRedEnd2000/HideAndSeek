@@ -13,6 +13,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.Objects;
+
 public class JoinGameEvent implements Listener {
 
     private Main plugin;
@@ -23,7 +25,7 @@ public class JoinGameEvent implements Listener {
 
     @EventHandler
     public void onSignEdit(SignChangeEvent event) {
-        if(event.getPlayer().hasPermission(s)){
+        if(event.getPlayer().hasPermission(Objects.requireNonNull(plugin.getConfig().getString("Permissions.CreateSignToJoinPermission")))){
             String line0 = event.getLine(0);
             String line1 = event.getLine(1);
             if (line0 != null && line0.equalsIgnoreCase("[hs]") && line1 != null && line1.equalsIgnoreCase("join")) {
