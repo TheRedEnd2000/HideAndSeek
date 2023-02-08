@@ -25,7 +25,8 @@ Settings:
 
 #Massages
 Messages:
-  NoPermissionMessage: '&cYou do not have the right permission to use this'
+  NoPermissionMessage: '&cYou do not have the right permission to use this.'
+  GameFullMassage: '&cThe Game is already full.'
 
 #Permission
 Permissions:
