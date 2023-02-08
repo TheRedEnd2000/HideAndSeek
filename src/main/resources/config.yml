@@ -1,7 +1,9 @@
 #Settings
 Settings:
+  #Minimum Player count
+  MinPLayerCount
   #Max Player per Game
-  Playercount: 10
+  MaxPlayercount: 10
   #Time in seconds
   TimetoPlay: 360
   #Max Seeker
