@@ -20,7 +20,7 @@ public class ConfigLocationUtil {
     }
 
     public void saveBlockLocation() {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = plugin.yaml;
         config.set(root + ".World", location.getWorld().getName());
         config.set(root + ".X", location.getBlockX());
         config.set(root + ".Y", location.getBlockY());
@@ -29,12 +29,12 @@ public class ConfigLocationUtil {
     }
 
     public Block loadBlockLocation() {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = plugin.yaml;
         if(config.contains(root)) {
             World world = Bukkit.getWorld(config.getString(root+".World"));
-            int x = plugin.getConfig().getInt(root +".X"),
-                    y = plugin.getConfig().getInt(root +".Y"),
-                    z = plugin.getConfig().getInt(root +".Z");
+            int x = plugin.yaml.getInt(root +".X"),
+                    y = plugin.yaml.getInt(root +".Y"),
+                    z = plugin.yaml.getInt(root +".Z");
             return new Location(world, x,y,z).getBlock();
         }
         return null;
@@ -45,7 +45,7 @@ public class ConfigLocationUtil {
     }
 
     public void saveLocation() {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = plugin.yaml;
         config.set(root+".World", location.getWorld().getName());
         config.set(root+".X", location.getX());
         config.set(root+".Y", location.getY());
@@ -55,7 +55,7 @@ public class ConfigLocationUtil {
         plugin.saveConfig();
     }
     public Location loadLocation() {
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration config = plugin.yaml;
         if(config.contains(root)) {
             World world = Bukkit.getWorld(config.getString(root + ".World"));
             double x = config.getDouble(root+".X"),

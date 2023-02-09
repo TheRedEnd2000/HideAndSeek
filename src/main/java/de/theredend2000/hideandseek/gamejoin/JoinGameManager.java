@@ -1,6 +1,7 @@
 package de.theredend2000.hideandseek.gamejoin;
 
 import de.theredend2000.hideandseek.Main;
+import de.theredend2000.hideandseek.countdowns.LobbyCountdown;
 import de.theredend2000.hideandseek.gamestates.EndingState;
 import de.theredend2000.hideandseek.gamestates.GameState;
 import de.theredend2000.hideandseek.gamestates.IngameState;
@@ -27,11 +28,11 @@ public class JoinGameManager {
             return;
         }
         if (plugin.getGamePlayer().size() >= plugin.getConfig().getInt("Settings.MaxPlayerCount")) {
-            player.sendMessage("§cThe Game is already full!");
+            player.sendMessage(Main.PREFIX+"§cThe Game is already full!");
             return;
         }
         if(plugin.getGamePlayer().contains(player)){
-            player.sendMessage("§cYou already joined the game!");
+            player.sendMessage(Main.PREFIX+"§cYou already joined the game!");
             return;
         }
         plugin.getGamePlayer().add(player);
@@ -52,10 +53,19 @@ public class JoinGameManager {
             Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie Lobby-Location wurde noch nicht gesetzt!");
 
         LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
+        LobbyCountdown countdown = lobbyState.getLobbyCountdown();
+        if(plugin.getGamePlayer().size() >= plugin.getConfig().getInt("Settings.MinPlayerCount")){
+            if(!countdown.isRunning()){
+                countdown.stopIdle();
+                countdown.start();
+            }
+        }
     }
 
 
     public void leaveGame(Player player) {
+        LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
+        LobbyCountdown countdown = lobbyState.getLobbyCountdown();
         if (plugin.getGamePlayer().contains(player)) {
             plugin.getGamePlayer().remove(player);
             for (Player current : plugin.getGamePlayer()) {
@@ -64,7 +74,10 @@ public class JoinGameManager {
             }
             if(plugin.getGamePlayer().size() == 0){
                 plugin.getGameStateManager().stopGame();
+                countdown.stopIdle();
+                countdown.stop();
             }
+            player.sendMessage(Main.PREFIX+"§cYou left the game.");
             player.getInventory().clear();
             player.setGameMode(GameMode.SURVIVAL);
             player.setHealthScale(20);
@@ -74,10 +87,16 @@ public class JoinGameManager {
             if (locationUtil.loadLocation() != null) {
                 player.teleport(locationUtil.loadLocation());
             } else
-                Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie Lobby-Location wurde noch nicht gesetzt!");
+                Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie End-Location wurde noch nicht gesetzt!");
 
-            LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
-        }
+            if(plugin.getGamePlayer().size() < plugin.getConfig().getInt("Settings.MinPlayerCount")){
+                if(countdown.isRunning()){
+                    countdown.stop();
+                    countdown.stopIdle();
+                }
+            }
+        }else
+            player.sendMessage(Main.PREFIX+"§cYou are not in the Game.");
     }
 
 

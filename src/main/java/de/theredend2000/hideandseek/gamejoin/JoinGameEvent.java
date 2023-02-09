@@ -40,7 +40,7 @@ public class JoinGameEvent implements Listener {
                 event.setLine(3, "§b-=-=-=-");
             }
         }else
-            event.getPlayer().sendMessage(Objects.requireNonNull(plugin.getConfig().getString("Messages.NoPermissionMessage")));
+            event.getPlayer().sendMessage(Objects.requireNonNull(plugin.getConfig().getString("Messages.NoPermissionMessage").replaceAll("&","§")));
     }
 
     @EventHandler
@@ -53,6 +53,8 @@ public class JoinGameEvent implements Listener {
             String warp2 = ((Sign) event.getClickedBlock().getState()).getLine(1);
             if (warp.equalsIgnoreCase("§aClick to Join") && warp2.equalsIgnoreCase("§6[§4Hide and Seek§6]")) {
                 plugin.getJoinGameManager().joinGame(player);
+            }else if (warp.equalsIgnoreCase("§cClick to Leave") && warp2.equalsIgnoreCase("§6[§4Hide and Seek§6]")) {
+                plugin.getJoinGameManager().leaveGame(player);
             }
         }
     }
