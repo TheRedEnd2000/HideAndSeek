@@ -3,6 +3,7 @@ package de.theredend2000.hideandseek;
 import de.theredend2000.hideandseek.gamejoin.JoinGameEvent;
 import de.theredend2000.hideandseek.gamestates.GameStateManager;
 import de.theredend2000.hideandseek.gamejoin.JoinGameManager;
+import de.theredend2000.hideandseek.mapsettings.MapManager;
 import de.theredend2000.hideandseek.menus.CommandMessagesManager;
 import de.theredend2000.hideandseek.menus.MainCommand;
 import de.theredend2000.hideandseek.menus.MainMenuManager;
@@ -27,6 +28,7 @@ public final class Main extends JavaPlugin {
     private GameStateManager gameStateManager;
     private CommandMessagesManager commandMessagesManager;
     private MainMenuManager mainMenuManager;
+    private MapManager mapManager;
     private ArrayList<Player> gamePlayer;
 
 
@@ -61,6 +63,7 @@ public final class Main extends JavaPlugin {
         gameStateManager = new GameStateManager(this);
         commandMessagesManager = new CommandMessagesManager(this);
         mainMenuManager = new MainMenuManager(this);
+        mapManager = new MapManager(this);
     }
 
     private void initListeners(){
@@ -92,4 +95,7 @@ public final class Main extends JavaPlugin {
         return gamePlayer;
     }
 
+    public MapManager getMapManager() {
+        return mapManager;
+    }
 }

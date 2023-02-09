@@ -27,7 +27,7 @@ public class JoinGameManager {
 
             return;
         }
-        if (plugin.getGamePlayer().size() >= plugin.getConfig().getInt("Settings.MaxPlayerCount")) {
+        if (plugin.getGamePlayer().size() >= LobbyState.MAX_PLAYER) {
             player.sendMessage(Main.PREFIX+"§cThe Game is already full!");
             return;
         }
@@ -38,7 +38,7 @@ public class JoinGameManager {
         plugin.getGamePlayer().add(player);
         for(Player current : plugin.getGamePlayer()) {
             current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7joined the round. §b[§2" +
-            plugin.getGamePlayer().size() + "§b/§2" + plugin.getConfig().getInt("Settings.MaxPlayerCount") + "§b]");
+            plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
         }
         plugin.getGameStateManager().setGameStates(GameState.LOBBY_STATE);
         player.getInventory().clear();
@@ -70,7 +70,7 @@ public class JoinGameManager {
             plugin.getGamePlayer().remove(player);
             for (Player current : plugin.getGamePlayer()) {
                 current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7left the round. §b[§2" +
-                        plugin.getGamePlayer().size() + "§b/§2" + plugin.getConfig().getInt("Settings.MaxPlayerCount") + "§b]");
+                        plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
             }
             if(plugin.getGamePlayer().size() == 0){
                 plugin.getGameStateManager().stopGame();

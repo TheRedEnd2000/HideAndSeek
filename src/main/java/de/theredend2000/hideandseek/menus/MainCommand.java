@@ -1,6 +1,7 @@
 package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
+import de.theredend2000.hideandseek.util.ConfigLocationUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,10 +31,11 @@ public class MainCommand implements CommandExecutor {
                         plugin.getCommandMessagesManager().sendHelpMessage(player);
                     }else if(args[0].equalsIgnoreCase("info")){
                         plugin.getCommandMessagesManager().sendInfoMessage(player);
+                        new ConfigLocationUtil(plugin,player.getLocation(),"Arenas.Test.1").saveLocation();
                     }else if(args[0].equalsIgnoreCase("menu")){
                         plugin.getMainMenuManager().createInventory(player);
-                    }else if(args[0].equalsIgnoreCase("s")){
-                    }
+                    }else
+                        player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
                 }else
                     player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
             }else{
