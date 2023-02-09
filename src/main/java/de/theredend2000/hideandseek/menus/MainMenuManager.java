@@ -17,7 +17,7 @@ public class MainMenuManager {
 
     public void createInventory(Player player){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Select or create an arena");
-        int[] redglass = new int[]{45,46,47,48,49,50,51,52};
+        int[] redglass = new int[]{45,46,47,48,49,50,51,52};//hi
         for(int i = 0; i < redglass.length; i++){
             mapInventory.setItem(redglass[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
         }
