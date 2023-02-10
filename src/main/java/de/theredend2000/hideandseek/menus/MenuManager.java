@@ -104,7 +104,9 @@ public class MenuManager {
         Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
         player.openInventory(Seeker);
     }
-    public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider}
+    public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider = Bukkit.createInventory(player, 54,"Hider");int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}
+    Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider").build());Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());player.openInventory(Hider);
+    }
 
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Edit Map");
