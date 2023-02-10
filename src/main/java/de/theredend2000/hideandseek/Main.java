@@ -3,10 +3,10 @@ package de.theredend2000.hideandseek;
 import de.theredend2000.hideandseek.gamejoin.JoinGameEvent;
 import de.theredend2000.hideandseek.gamestates.GameStateManager;
 import de.theredend2000.hideandseek.gamejoin.JoinGameManager;
-import de.theredend2000.hideandseek.mapsettings.MapManager;
-import de.theredend2000.hideandseek.menus.CommandMessagesManager;
-import de.theredend2000.hideandseek.menus.MainCommand;
-import de.theredend2000.hideandseek.menus.MainMenuManager;
+import de.theredend2000.hideandseek.menus.*;
+import de.theredend2000.hideandseek.voting.Map;
+import de.theredend2000.hideandseek.voting.Voting;
+import de.theredend2000.hideandseek.voting.VotingListener;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -27,9 +27,10 @@ public final class Main extends JavaPlugin {
     private JoinGameManager joinGameManager;
     private GameStateManager gameStateManager;
     private CommandMessagesManager commandMessagesManager;
-    private MainMenuManager mainMenuManager;
-    private MapManager mapManager;
+    private MenuManager mainMenuManager;
     private ArrayList<Player> gamePlayer;
+    private ArrayList<Map> maps;
+    private Voting voting;
 
 
     @Override
@@ -39,6 +40,7 @@ public final class Main extends JavaPlugin {
         this.saveData();
 
         gamePlayer = new ArrayList<>();
+        initVoting();
         initManagers();
         initListeners();
         initCommands();
@@ -57,22 +59,43 @@ public final class Main extends JavaPlugin {
         }
     }
 
+    public void initVoting() {
+        if(!yaml.contains("Arenas")){
+            yaml.set("Arenas.Test.Builder","TestBuilder");
+            saveData();
+        }
+        maps = new ArrayList<>();
+        maps.clear();
+            for (String current : yaml.getConfigurationSection("Arenas.").getKeys(false)) {
+                Map map = new Map(this, current);
+                if (map.playable())
+                    maps.add(map);
+            }
+            if (maps.size() >= Voting.MAP_AMOUNT) {
+                voting = new Voting(this, maps);
+                Bukkit.broadcastMessage(String.valueOf(Voting.MAP_AMOUNT+maps.size()));
+            }else {
+                voting = null;
+            }
+    }
 
     private void initManagers(){
         joinGameManager = new JoinGameManager(this);
         gameStateManager = new GameStateManager(this);
         commandMessagesManager = new CommandMessagesManager(this);
-        mainMenuManager = new MainMenuManager(this);
-        mapManager = new MapManager(this);
+        mainMenuManager = new MenuManager(this);
     }
 
     private void initListeners(){
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new JoinGameEvent(this),this);
+        pluginManager.registerEvents(new VotingListener(this),this);
+        pluginManager.registerEvents(new MenuListener(this),this);
     }
 
     private void initCommands(){
         getCommand("hideandseek").setExecutor(new MainCommand(this));
+        getCommand("hideandseekadmin").setExecutor(new AdminCommand(this));
     }
 
     public JoinGameManager getJoinGameManager() {
@@ -87,7 +110,7 @@ public final class Main extends JavaPlugin {
         return commandMessagesManager;
     }
 
-    public MainMenuManager getMainMenuManager() {
+    public MenuManager getMenuManager() {
         return mainMenuManager;
     }
 
@@ -95,7 +118,7 @@ public final class Main extends JavaPlugin {
         return gamePlayer;
     }
 
-    public MapManager getMapManager() {
-        return mapManager;
+    public Voting getVoting() {
+        return voting;
     }
 }

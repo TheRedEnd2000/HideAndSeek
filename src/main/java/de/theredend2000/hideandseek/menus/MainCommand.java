@@ -21,7 +21,6 @@ public class MainCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(player.hasPermission(Objects.requireNonNull(plugin.getConfig().getString("Permissions.UseMainCommand")))){
                 if(args.length == 0){
                     plugin.getCommandMessagesManager().sendHelpMessage(player);
                     plugin.getCommandMessagesManager().sendInfoMessage(player);
@@ -31,16 +30,10 @@ public class MainCommand implements CommandExecutor {
                         plugin.getCommandMessagesManager().sendHelpMessage(player);
                     }else if(args[0].equalsIgnoreCase("info")){
                         plugin.getCommandMessagesManager().sendInfoMessage(player);
-                        new ConfigLocationUtil(plugin,player.getLocation(),"Arenas.Test.1").saveLocation();
-                    }else if(args[0].equalsIgnoreCase("menu")){
-                        plugin.getMainMenuManager().createInventory(player);
                     }else
                         player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
                 }else
                     player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
-            }else{
-                player.sendMessage(Main.PREFIX+plugin.getConfig().getString("Messages.NoPermissionMessage").replaceAll("&","§"));
-            }
         }
         return false;
     }

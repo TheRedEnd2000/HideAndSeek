@@ -14,18 +14,10 @@ public class IngameState extends GameState{
 
     @Override
     public void start() {
-        teleportAllPlayers();
     }
 
     @Override
     public void stop() {
 
-    }
-
-    private void teleportAllPlayers(){
-        plugin.getMapManager().load(plugin.getMapManager().getPlayingMap());
-        players = plugin.getGamePlayer();
-        for(int i = 0; i < players.size(); i++)
-            players.get(i).teleport(plugin.getMapManager().getSpawnLocations()[i]);
     }
 }

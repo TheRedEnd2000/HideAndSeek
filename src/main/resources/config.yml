@@ -29,5 +29,5 @@ Messages:
 #Permission
 Permissions:
   CreateSignToJoinPermission: hideandseek.createsign
-  UseMainCommand: hideandseek.maincommand
+  UseAdminCommand: hideandseek.admincommand
 

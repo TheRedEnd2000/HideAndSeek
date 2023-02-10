@@ -7,8 +7,10 @@ import de.theredend2000.hideandseek.gamestates.GameState;
 import de.theredend2000.hideandseek.gamestates.IngameState;
 import de.theredend2000.hideandseek.gamestates.LobbyState;
 import de.theredend2000.hideandseek.util.ConfigLocationUtil;
+import de.theredend2000.hideandseek.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class JoinGameManager {
@@ -45,6 +47,7 @@ public class JoinGameManager {
         player.setGameMode(GameMode.SURVIVAL);
         player.setHealthScale(20);
         player.setFoodLevel(20);
+        player.getInventory().setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayname("Vote").build());
 
         ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "lobby");
         if (locationUtil.loadLocation() != null) {

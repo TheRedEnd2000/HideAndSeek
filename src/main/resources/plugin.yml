@@ -12,4 +12,10 @@ commands:
       - hideseek
       - hideaseek
       - seekandhide
-    description: main command
+    description: shows details
+  hideandseekadmin:
+    aliases:
+      - hideandseeka
+      - hasadmin
+      - hasa
+    description: open the admin menu

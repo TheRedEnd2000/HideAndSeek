@@ -32,16 +32,16 @@ public class LobbyCountdown extends Countdown{
     @Override
     public void start() {
         isRunning = true;
-        seconds = 5;
+        seconds = 60;
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 switch (seconds) {
-                   /* case 60: case 30: case 15: case 10: case 5: case 4: case 3: case 2:
+                   case 60: case 30: case 15: case 10: case 5: case 4: case 3: case 2:
                         for(Player current : plugin.getGamePlayer()){
                             current.sendMessage(Main.PREFIX+ "§7Das Spiel startet in §a"+seconds+ " Sekunden§7.");
                         }
-                        break;*/
+                        break;
                     case 1:
                         for(Player current : plugin.getGamePlayer()){
                             current.sendMessage(Main.PREFIX+ "§7Das Spiel startet in §a"+seconds+ " Sekunde§7.");

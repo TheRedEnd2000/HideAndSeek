@@ -30,14 +30,6 @@ public class LobbyState extends GameState{
 
     @Override
     public void stop() {
-        ArrayList<String> map = new ArrayList<>();
-        map.addAll(plugin.yaml.getConfigurationSection("Arenas.").getKeys(false));
-        for(int i = 0; i < map.size(); i++) {
-            Collections.shuffle(map);
-            plugin.getMapManager().playingMap = map.get(0);
-            Bukkit.broadcastMessage("Map: "+map);
-            map.clear();
-        }
     }
 
     public LobbyCountdown getLobbyCountdown() {
