@@ -4,6 +4,7 @@ import de.theredend2000.hideandseek.gamejoin.JoinGameEvent;
 import de.theredend2000.hideandseek.gamestates.GameStateManager;
 import de.theredend2000.hideandseek.gamejoin.JoinGameManager;
 import de.theredend2000.hideandseek.menus.*;
+import de.theredend2000.hideandseek.role.RoleManager;
 import de.theredend2000.hideandseek.voting.Map;
 import de.theredend2000.hideandseek.voting.Voting;
 import de.theredend2000.hideandseek.voting.VotingListener;
@@ -31,6 +32,7 @@ public final class Main extends JavaPlugin {
     private ArrayList<Player> gamePlayer;
     private ArrayList<Map> maps;
     private Voting voting;
+    private RoleManager roleManager;
 
 
     @Override
@@ -87,6 +89,7 @@ public final class Main extends JavaPlugin {
         gameStateManager = new GameStateManager(this);
         commandMessagesManager = new CommandMessagesManager(this);
         mainMenuManager = new MenuManager(this);
+        roleManager = new RoleManager(this);
     }
 
     private void initListeners(){
@@ -127,5 +130,9 @@ public final class Main extends JavaPlugin {
 
     public ArrayList<Map> getMaps() {
         return maps;
+    }
+
+    public RoleManager getRoleManager() {
+        return roleManager;
     }
 }

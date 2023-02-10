@@ -9,7 +9,7 @@ Settings:
   #If a Hider got killed, he will become a Seeker(false = Not/ true = Yes)
   SwitchTeam: false
   #Time the Hider get to Hide before the Seeker will spawn(Time in seconds)
-  SeekerTimeToSpawn: 30
+  HidingTime: 30
   #If enabled, switch to Spectator mode after death in-game(false = Not/ true = Yes)
   SpectatorMode: true
   #Enable Ability´s

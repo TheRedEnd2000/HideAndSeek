@@ -2,10 +2,14 @@ package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.util.ConfigLocationUtil;
+import de.theredend2000.hideandseek.util.ItemBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.Objects;
 
@@ -30,6 +34,12 @@ public class MainCommand implements CommandExecutor {
                         plugin.getCommandMessagesManager().sendHelpMessage(player);
                     }else if(args[0].equalsIgnoreCase("info")){
                         plugin.getCommandMessagesManager().sendInfoMessage(player);
+                    }else if(args[0].equalsIgnoreCase("chest")){
+                        Inventory inventory = Bukkit.createInventory(player, 54, "Chest");
+                        for(int i = 0; i < 54; i++){
+                            inventory.setItem(i,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname(String.valueOf(i)).build());
+                        }
+                        player.openInventory(inventory);
                     }else
                         player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
                 }else

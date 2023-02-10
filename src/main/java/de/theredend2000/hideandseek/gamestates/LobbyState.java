@@ -30,6 +30,7 @@ public class LobbyState extends GameState{
 
     @Override
     public void stop() {
+
     }
 
     public LobbyCountdown getLobbyCountdown() {

@@ -38,4 +38,8 @@ public class GameStateManager {
     public GameState getCurrentGameState() {
         return currentGameState;
     }
+
+    public Main getPlugin() {
+        return plugin;
+    }
 }

@@ -6,6 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.Arrays;
 
 public class MenuManager {
 
@@ -50,10 +54,17 @@ public class MenuManager {
             settingsInventory.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
         }
         settingsInventory.setItem(4, new ItemBuilder(Material.COMPARATOR).setDisplayname("Settings").setLore("§c").build());
-        settingsInventory.setItem(11, new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6§lPlayerSettings").setLore("§2Click here to open the Player Settings.").setLocalizedName("settings.playersettings").build());
+        //craftingtable
+        ItemStack is = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta isMeta = (SkullMeta) is.getItemMeta();
+        isMeta.setOwner("craftingtable");
+        isMeta.setDisplayName("§6§lPlayerSettings");
+        isMeta.setLore(Arrays.asList("§2Click here to open the Player Settings."));
+        is.setItemMeta(isMeta);
+        settingsInventory.setItem(11, is);
         settingsInventory.setItem(15,new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("Abilitys").setLore("Click her to open the Ability Menu").setLocalizedName("settings.Ability").build());
         settingsInventory.setItem(22,new ItemBuilder(Material.CLOCK).setDisplayname("Playtime").setLore("Click here to open the Playtime Menu").setLocalizedName("settings.Playtime").build());
-        settingsInventory.setItem(40,new ItemBuilder(Material.FEATHER).setDisplayname("Spactator").setLore("Click to switch the ...").setLocalizedName("settings.Spactator").build());
+        settingsInventory.setItem(40,new ItemBuilder(Material.FEATHER).setDisplayname("Spectator").setLore("Click to switch the ...").setLocalizedName("settings.Spactator").build());
         player.openInventory(settingsInventory);
     }
 
