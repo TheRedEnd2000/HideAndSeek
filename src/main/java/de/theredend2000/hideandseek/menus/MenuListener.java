@@ -219,6 +219,7 @@ public class MenuListener implements Listener {
                 if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
                         case "settings.playersettings.Seeker":
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
                         case "settings.playersettings.MinPlayerCount":
                             int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
