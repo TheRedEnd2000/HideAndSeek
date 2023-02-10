@@ -193,12 +193,19 @@ public class MenuListener implements Listener {
         if (event.getView().getTitle().equals("Settings")) {
             event.setCancelled(true);
             if (event.getCurrentItem() != null) {
-                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName())
+                {
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
                         case "settings.playersettings":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
+                        case "settings.mainmenu":
+                            plugin.getMenuManager().createInventory(player);
+                            break;
+
+
                     }
+
                 }
             }
         }
