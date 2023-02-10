@@ -210,4 +210,31 @@ public class MenuListener implements Listener {
             }
         }
     }
+    @EventHandler
+    public void onClickPlayerSettingsInventory(InventoryClickEvent event)
+    {
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Playersettings"))
+        {
+            event.setCancelled(true);
+            if(event.getCurrentItem() != null)
+            {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName())
+                {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName())
+                    {
+                        case "settings.playersettings.Seeker":
+                            break;
+                    }
+
+
+                }
+
+
+            }
+
+
+
+        }
+    }
 }

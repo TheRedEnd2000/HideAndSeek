@@ -69,17 +69,33 @@ public class MenuManager {
     }
 
     public void createSettingsPlayerSettingsInventory(Player player){
-        Inventory settingsInventory = Bukkit.createInventory(player, 54, "Settings");
-        int[] whiteglass = new int[]{45,46,47,48,49,50,51,52};
-        for(int i = 0; i < whiteglass.length; i++){
-            settingsInventory.setItem(whiteglass[i], new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).setDisplayname("§c").build());
-        }
-        settingsInventory.setItem(53, new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6§lPlayerSettings").setLore("§2Click here to create a new Map.").setLocalizedName("settings.playersettings").build());
-        settingsInventory.setItem(34,new ItemBuilder(Material.PAPER).setDisplayname("Halllo").setLore("halo1","2").setLocalizedName("settings-hallo").build());
+        Inventory settingsInventory = Bukkit.createInventory(player, 54, "Playersettings");
+        int[] redglass2 = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53};
+        int[] oragne = new int[]{11,15,19,20,22,24,25,27,31,34,36,40,43};
+        int[] white = new int[]{12,14,21,23,30,32,39,41};
+        for(int i = 0; i < redglass2.length; i++){settingsInventory.setItem(redglass2[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        for(int i = 0; i < oragne.length; i++){settingsInventory.setItem(oragne[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        for(int i = 0; i < white.length; i++){settingsInventory.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        settingsInventory.setItem(10, new ItemBuilder(Material.REDSTONE_TORCH).setDisplayname("§gMinPlayerCount").setLore("§cLeftClick §e: §a+1","§cRightClick §e: §a-1","§3MinPlayerCount§e:§5").setLocalizedName("settings.playersettings.MinPlayerCount").build());
+        settingsInventory.setItem(13,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§8Click for Seeker Settings").setLocalizedName("settings.playersettings.Seeker").build());
+        settingsInventory.setItem(16,new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§8Click for Hider Settings").setLocalizedName("settings.playersettings.Hider").build());
+        settingsInventory.setItem(22,new ItemBuilder(Material.CLOCK).setDisplayname("§5Play§eTime").setLore("§8Click to Choose the game playtime").setLocalizedName("settings.playersettings.Playtime").build());
+        settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§1Switch§cTeam").setLore("§bActivate if you want to become a Seeker after you died").setLocalizedName("settings.playersettings.SwitchTeam").build());
+        settingsInventory.setItem(38,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
+        settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").setLocalizedName("settings.playersettings.Nothingishere").build());
+        settingsInventory.setItem(33,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
+        settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
 
         player.openInventory(settingsInventory);
     }
+    public void createSettingsPlayerSettingsSeekerInventory(Player player)
+    {
+        Inventory Seeker = Bukkit.createInventory(player, 54,"Seeker");
+        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53};
+        int[] orange = new int[]{13,22,31,40};
+        for(int i = 0; i < redglass.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
 
+    }
 
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Map -> "+mapname);
