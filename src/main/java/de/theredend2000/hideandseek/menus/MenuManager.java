@@ -83,7 +83,7 @@ public class MenuManager {
         settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§1Switch§cTeam").setLore("§bActivate if you want to become a Seeker after you died").setLocalizedName("settings.playersettings.SwitchTeam").build());
         settingsInventory.setItem(38,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
         settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").setLocalizedName("settings.playersettings.Nothingishere").build());
-        settingsInventory.setItem(33,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
+        settingsInventory.setItem(42,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
         settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
 
         player.openInventory(settingsInventory);
