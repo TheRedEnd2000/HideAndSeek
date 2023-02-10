@@ -30,7 +30,7 @@ public final class Main extends JavaPlugin {
     private CommandMessagesManager commandMessagesManager;
     private MenuManager mainMenuManager;
     private ArrayList<Player> gamePlayer;
-    private ArrayList<Map> maps;
+    public ArrayList<Map> maps;
     private Voting voting;
     private RoleManager roleManager;
 
@@ -42,6 +42,7 @@ public final class Main extends JavaPlugin {
         this.saveData();
 
         gamePlayer = new ArrayList<>();
+        maps = new ArrayList<>();
         initVoting();
         initManagers();
         initListeners();
@@ -67,14 +68,13 @@ public final class Main extends JavaPlugin {
             yaml.set("Arenas.Test.isFinished", "false");
             saveData();
         }
-        maps = new ArrayList<>();
         for(String current : yaml.getConfigurationSection("Arenas.").getKeys(false)) {
             Map map = new Map(this,current);
-            if(map.playable())
+            if(map.playable()) {
                 maps.add(map);
-            else
+                Bukkit.getConsoleSender().sendMessage("Added Map "+map.getName());
+            }else
                 Bukkit.getConsoleSender().sendMessage(Main.PREFIX+"§cDie Map §6"+map.getName()+ " §cist noch nicht fertig eingerichtet!");
-            Bukkit.getConsoleSender().sendMessage(String.valueOf(maps));
         }
         if(maps.size() >= Voting.MAP_AMOUNT)
             voting = new Voting(this,maps);

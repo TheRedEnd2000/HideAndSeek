@@ -1,6 +1,8 @@
 package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
+import de.theredend2000.hideandseek.countdowns.LobbyCountdown;
+import de.theredend2000.hideandseek.gamestates.LobbyState;
 import de.theredend2000.hideandseek.util.ConfigLocationUtil;
 import de.theredend2000.hideandseek.util.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -40,6 +42,16 @@ public class MainCommand implements CommandExecutor {
                             inventory.setItem(i,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname(String.valueOf(i)).build());
                         }
                         player.openInventory(inventory);
+                    }else
+                    if(args[0].equalsIgnoreCase("start")){
+                        String permission = plugin.getConfig().getString("Permissions.StartGameCommand");
+                        if(player.hasPermission(permission)){
+                            if(plugin.getGameStateManager().getCurrentGameState() instanceof LobbyState){
+                                LobbyCountdown lobbyCountdown = new LobbyCountdown(plugin,plugin.getGameStateManager());
+                                lobbyCountdown.setSeconds(5);
+                            }
+                        }else
+                            player.sendMessage(Main.PREFIX+plugin.getConfig().getString("Messages.NoPermissionMessage"));
                     }else
                         player.sendMessage(Main.PREFIX+"§7Usage: §6/hideandseek");
                 }else

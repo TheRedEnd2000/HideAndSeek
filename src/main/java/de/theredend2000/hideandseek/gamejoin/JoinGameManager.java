@@ -22,7 +22,11 @@ public class JoinGameManager {
     }
 
     public void joinGame(Player player) {
-        if (plugin.getMaps().size() >= 1) {
+        player.sendMessage(String.valueOf(plugin.getMaps().size()));
+        if (plugin.getMaps().size() == 0) {
+            player.sendMessage(Main.PREFIX+"§cThe are no maps to play on.");
+            return;
+        }
             if (plugin.getGameStateManager().getCurrentGameState() instanceof IngameState || plugin.getGameStateManager().getCurrentGameState() instanceof EndingState) {
 
                 //ADD PLAYER TO SPECTATOR
@@ -63,10 +67,7 @@ public class JoinGameManager {
                     countdown.start();
                 }
             }
-        }else{
-            player.sendMessage(Main.PREFIX+"§cThe are no maps to play on.");
         }
-    }
 
 
     public void leaveGame(Player player) {

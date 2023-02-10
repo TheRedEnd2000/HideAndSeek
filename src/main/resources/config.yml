@@ -24,4 +24,5 @@ Messages:
 Permissions:
   CreateSignToJoinPermission: hideandseek.createsign
   UseAdminCommand: hideandseek.admincommand
+  StartGameCommand: hideandseek.start
 

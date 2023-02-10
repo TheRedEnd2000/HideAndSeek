@@ -48,6 +48,9 @@ public class Map {
         for(int i = 1; i < LobbyState.MAX_PLAYER+ 1; i++) {
             if(!plugin.yaml.contains("Arenas." + name + "."+i)) return false;
         }
+        if(!plugin.yaml.contains("Arenas."+name+".Lobby")) return false;
+        if(!plugin.yaml.contains("Arenas."+name+".Ending")) return false;
+        if(!plugin.yaml.getBoolean("Arenas."+name+".isFinished")) return false;
         return true;
     }
 

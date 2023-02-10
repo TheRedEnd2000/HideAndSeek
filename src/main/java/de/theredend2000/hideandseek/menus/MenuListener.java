@@ -141,6 +141,8 @@ public class MenuListener implements Listener {
                     plugin.saveData();
                     plugin.initVoting();
                     player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+" §7got§c deleted§7.");
+                    Map map = new Map(plugin, mapName);
+                    plugin.getMaps().remove(map);
                 }
             }
         }
@@ -284,7 +286,6 @@ public class MenuListener implements Listener {
             }
         }
     }
-//irgendwasmit spruch
     @EventHandler
     public void onClickEditMapInventory(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
@@ -312,6 +313,16 @@ public class MenuListener implements Listener {
                             player.closeInventory();
                             player.sendMessage("§7The §6Spectator Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
                             break;
+                        case "map.lobby":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Lobby").saveLocation();
+                            player.closeInventory();
+                            player.sendMessage("§7The §6Lobby Location §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            break;
+                        case "map.ending":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Ending").saveLocation();
+                            player.closeInventory();
+                            player.sendMessage("§7The §6Ending Location §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            break;
                         case "map.main":
                             plugin.getMenuManager().createInventory(player);
                             break;
@@ -322,8 +333,10 @@ public class MenuListener implements Listener {
                             if(isFinished(mapName)){
                                 plugin.yaml.set("Arenas."+mapName+".isFinished",true);
                                 plugin.saveData();
-                                player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+"§7 was §2successfully §7created.");
+                                player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+"§7 was §2successfully §7finished.");
                                 player.closeInventory();
+                                Map map = new Map(plugin, mapName);
+                                plugin.getMaps().add(map);
                             }else{
                                 player.sendMessage(Main.PREFIX+"§cPlease finish the setup.");
                             }
@@ -339,6 +352,8 @@ public class MenuListener implements Listener {
             if(!plugin.yaml.contains("Arenas."+mapname+"."+i)) return false;
         if(!plugin.yaml.contains("Arenas."+mapname+".Seeker")) return false;
         if(!plugin.yaml.contains("Arenas."+mapname+".Spectator")) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".Lobby")) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".Ending")) return false;
 
         return true;
     }
