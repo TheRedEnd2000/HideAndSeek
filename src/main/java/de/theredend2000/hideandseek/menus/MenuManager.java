@@ -40,13 +40,20 @@ public class MenuManager {
 
     public void createSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Settings");
-        int[] whiteglass = new int[]{45,46,47,48,49,50,51,52};
-        for(int i = 0; i < whiteglass.length; i++){
-            settingsInventory.setItem(whiteglass[i], new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53};
+        for(int i = 0; i < redglass.length; i++){
+            settingsInventory.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());
         }
-        settingsInventory.setItem(53, new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6§lPlayerSettings").setLore("§2Click here to create a new Map.").setLocalizedName("settings.playersettings").build());
-        settingsInventory.setItem(34,new ItemBuilder(Material.PAPER).setDisplayname("Halllo").setLore("halo1","2").setLocalizedName("settings-hallo").build());
-
+        int[] orange = new int[]{12,13,14,19,20,21,23,24,25,28,29,30,31,32,33,34,38,39,42,43};
+        for(int i = 0; i < orange.length; i++)
+        {
+            settingsInventory.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        }
+        settingsInventory.setItem(4, new ItemBuilder(Material.COMPARATOR).setDisplayname("Settings").setLore("§c").build());
+        settingsInventory.setItem(11, new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6§lPlayerSettings").setLore("§2Click here to open the Player Settings.").setLocalizedName("settings.playersettings").build());
+        settingsInventory.setItem(15,new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("Abilitys").setLore("Click her to open the Ability Menu").setLocalizedName("settings.Ability").build());
+        settingsInventory.setItem(22,new ItemBuilder(Material.CLOCK).setDisplayname("Playtime").setLore("Click here to open the Playtime Menu").setLocalizedName("settings.Playtime").build());
+        settingsInventory.setItem(40,new ItemBuilder(Material.FEATHER).setDisplayname("Spactator").setLore("Click to switch the ...").setLocalizedName("settings.Spactator").build());
         player.openInventory(settingsInventory);
     }
 
