@@ -284,7 +284,7 @@ public class MenuListener implements Listener {
             }
         }
     }
-
+//irgendwasmit spruch
     @EventHandler
     public void onClickEditMapInventory(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();

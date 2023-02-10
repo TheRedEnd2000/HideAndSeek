@@ -42,7 +42,7 @@ public class MenuManager {
             mapInventory.setItem(22, new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§4No Maps").setLore("§2Click the emerald block to create one.").build());
         player.openInventory(mapInventory);
     }
-
+//bitte lösch mich
     public void createSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Settings");
         int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53};
