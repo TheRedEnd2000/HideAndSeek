@@ -82,11 +82,11 @@ public class MenuManager {
         settingsInventory.setItem(13,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§8Click for Seeker Settings").setLocalizedName("settings.playersettings.Seeker").build());
         settingsInventory.setItem(16,new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§8Click for Hider Settings").setLocalizedName("settings.playersettings.Hider").build());
         settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§1Switch§cTeam").setLore("§bActivate if you want to become a Seeker after you died").setLocalizedName("settings.playersettings.SwitchTeam").build());
-        settingsInventory.setItem(38,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
+        settingsInventory.setItem(38,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
         settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").setLocalizedName("settings.playersettings.Nothingishere").build());
-        settingsInventory.setItem(42,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
+        settingsInventory.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
         settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
-        settingsInventory.setItem(49,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
+        settingsInventory.setItem(4,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
 
         player.openInventory(settingsInventory);
     }
@@ -102,14 +102,9 @@ public class MenuManager {
         Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§9MaxSeekerCountBeginn").setLore("§7Maximum Player Count at the beginning of an game").setLocalizedName("settings.playersettings.Seeker.Head").build());
         Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7 The Seeker´s Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
         Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
-
-
-
-
-
-
-
+        player.openInventory(Seeker);
     }
+    public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider}
 
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Edit Map");
