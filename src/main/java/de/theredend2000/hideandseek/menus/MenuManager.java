@@ -71,7 +71,7 @@ public class MenuManager {
     public void createSettingsPlayerSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Player Settings");
         int[] redglass2 = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53};
-        int[] oragne = new int[]{11,15,19,20,22,24,25,27,31,34,36,40,43};
+        int[] oragne = new int[]{11,15,19,20,22,24,25,28,31,34,37,40,43};
         int[] white = new int[]{12,14,21,23,30,32,39,41};
         for(int i = 0; i < redglass2.length; i++){settingsInventory.setItem(redglass2[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < oragne.length; i++){settingsInventory.setItem(oragne[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
