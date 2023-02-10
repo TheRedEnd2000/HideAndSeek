@@ -23,11 +23,8 @@ public class AdminCommand implements CommandExecutor {
             Player player = (Player) sender;
             String permission = plugin.getConfig().getString("Permissions.UseAdminCommand");
             if(player.hasPermission(permission)){
-                if(args.length == 0){
-                    plugin.getMenuManager().createInventory(player);
-                    return true;
-                }else
-                    player.sendMessage("§c/hideandseekadmin");
+               plugin.getMenuManager().createInventory(player);
+               return true;
             }else{
                 player.sendMessage(Main.PREFIX+plugin.getConfig().getString("Messages.NoPermissionMessage"));
             }

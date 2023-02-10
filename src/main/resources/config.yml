@@ -6,18 +6,12 @@ Settings:
   TimeToPlay: 360
   #Max Seeker
   Seeker: 2
-  #Max Hider
-  Hider: 8
   #If a Hider got killed, he will become a Seeker(false = Not/ true = Yes)
   SwitchTeam: false
   #Time the Hider get to Hide before the Seeker will spawn(Time in seconds)
   SeekerTimeToSpawn: 30
   #If enabled, switch to Spectator mode after death in-game(false = Not/ true = Yes)
   SpectatorMode: true
-  #What happens when you join a Game which already started. If set to false you won't be able to join a running Game,else you would.(true)
-  JoinRunningGame:
-    #If you enable to join the running game, here you can choose which team you or other players will be in.(Set the one you like to true the rest to false)
-    JoinTheRunningGameAsSpectator: true
   #Enable Ability´s
   Ability: false
 

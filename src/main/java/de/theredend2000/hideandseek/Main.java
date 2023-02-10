@@ -68,14 +68,17 @@ public final class Main extends JavaPlugin {
         maps.clear();
             for (String current : yaml.getConfigurationSection("Arenas.").getKeys(false)) {
                 Map map = new Map(this, current);
-                if (map.playable())
+                if (map.playable()) {
                     maps.add(map);
+                }
+                Bukkit.broadcastMessage(String.valueOf(map));
             }
             if (maps.size() >= Voting.MAP_AMOUNT) {
                 voting = new Voting(this, maps);
                 Bukkit.broadcastMessage(String.valueOf(Voting.MAP_AMOUNT+maps.size()));
             }else {
                 voting = null;
+
             }
     }
 
@@ -120,5 +123,9 @@ public final class Main extends JavaPlugin {
 
     public Voting getVoting() {
         return voting;
+    }
+
+    public ArrayList<Map> getMaps() {
+        return maps;
     }
 }

@@ -2,6 +2,7 @@ package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.voting.Map;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
@@ -13,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -42,7 +44,25 @@ public class MenuListener implements Listener {
                             String mapName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                             plugin.getMenuManager().createMapEditInventory(player, mapName);
                         }else if(event.getAction() == InventoryAction.PICKUP_HALF){
-
+                            String mapName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
+                            plugin.getMenuManager().createDeleteInventory(player, mapName, 5, true);
+                            new BukkitRunnable() {
+                                int seconds = 5;
+                                @Override
+                                public void run() {
+                                    if (player.getOpenInventory().getTitle().equals("§4Delete a Map")) {
+                                        if (seconds == 0) {
+                                            cancel();
+                                            plugin.getMenuManager().createDeleteInventory(player, mapName, seconds, true);
+                                            return;
+                                        }
+                                        plugin.getMenuManager().createDeleteInventory(player, mapName, seconds, false);
+                                        seconds--;
+                                    }else{
+                                        cancel();
+                                    }
+                                }
+                            }.runTaskTimer(plugin,0,20);
                         }
                     }else if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
                         switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
@@ -56,6 +76,10 @@ public class MenuListener implements Listener {
                                 player.closeInventory();
                                 player.sendMessage(Main.PREFIX+"§7Type Map Name in Chat. Type '§4cancel§7' to cancel.");
                                 searchPlayer.add(player);
+                                break;
+                            case "settings":
+                                player.closeInventory();
+                                plugin.getMenuManager().createSettingsInventory(player);
                                 break;
                         }
                     }
@@ -93,6 +117,26 @@ public class MenuListener implements Listener {
                             builderPlayer.add(player);
                             break;
                     }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClickDeleteInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("§4Delete a Map")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if(event.getCurrentItem().getType().equals(Material.RED_CONCRETE)){
+                    plugin.getMenuManager().createInventory(player);
+                }else if(event.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS)){
+                    player.closeInventory();
+                    String mapName = ChatColor.stripColor(event.getInventory().getItem(13).getItemMeta().getDisplayName());
+                    plugin.yaml.set("Arenas."+mapName, null);
+                    plugin.saveData();
+                    plugin.initVoting();
+                    player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+" §7got§c deleted§7.");
                 }
             }
         }
@@ -139,6 +183,23 @@ public class MenuListener implements Listener {
             }else{
                 plugin.getMenuManager().createInventory(event.getPlayer());
                 event.getPlayer().sendMessage(Main.PREFIX+"§cI can't find this Map. Try again.");
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClickSettingsInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Settings")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
+                        case "settings.playersettings":
+                            plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            break;
+                    }
+                }
             }
         }
     }
