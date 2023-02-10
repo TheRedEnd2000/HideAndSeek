@@ -25,7 +25,7 @@ public class LobbyState extends GameState{
 
     @Override
     public void start() {
-        lobbyCountdown.startIdle();
+
     }
 
     @Override

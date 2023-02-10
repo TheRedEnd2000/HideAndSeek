@@ -42,9 +42,11 @@ public class Map {
     }
 
     public boolean playable() {
-        if(!plugin.yaml.contains("Builder")) return false;
+        if(!plugin.yaml.contains("Arenas." + name + ".Builder")) return false;
+        if(!plugin.yaml.contains("Arenas."+name+".Seeker")) return false;
+        if(!plugin.yaml.contains("Arenas."+name+".Spectator")) return false;
         for(int i = 1; i < LobbyState.MAX_PLAYER+ 1; i++) {
-            if(!plugin.yaml.contains(Integer.toString(i))) return false;
+            if(!plugin.yaml.contains("Arenas." + name + "."+i)) return false;
         }
         return true;
     }

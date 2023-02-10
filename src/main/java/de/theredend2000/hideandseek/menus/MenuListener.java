@@ -1,10 +1,12 @@
 package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
+import de.theredend2000.hideandseek.util.ConfigLocationUtil;
 import de.theredend2000.hideandseek.voting.Map;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.*;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -108,6 +110,8 @@ public class MenuListener implements Listener {
                                 player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+"§7 by §6"+mapBuilder+"§7 was created§a successfully§7.");
                                 player.closeInventory();
                                 plugin.initVoting();
+                                plugin.yaml.set("Arenas."+mapName+".isFinished",false);
+                                plugin.saveData();
                             }else
                                 player.sendMessage(Main.PREFIX+"§cPlease finish the setup");
                             break;
@@ -193,8 +197,7 @@ public class MenuListener implements Listener {
         if (event.getView().getTitle().equals("Settings")) {
             event.setCancelled(true);
             if (event.getCurrentItem() != null) {
-                if (event.getCurrentItem().getItemMeta().hasLocalizedName())
-                {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
                         case "settings.playersettings":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
@@ -202,39 +205,139 @@ public class MenuListener implements Listener {
                         case "settings.mainmenu":
                             plugin.getMenuManager().createInventory(player);
                             break;
-
-
                     }
-
                 }
             }
         }
     }
     @EventHandler
-    public void onClickPlayerSettingsInventory(InventoryClickEvent event)
-    {
+    public void onClickPlayerSettingsInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equals("Playersettings"))
-        {
+        if (event.getView().getTitle().equals("Player Settings")) {
             event.setCancelled(true);
-            if(event.getCurrentItem() != null)
-            {
-                if (event.getCurrentItem().getItemMeta().hasLocalizedName())
-                {
-                    switch (event.getCurrentItem().getItemMeta().getLocalizedName())
-                    {
+            if(event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
                         case "settings.playersettings.Seeker":
                             break;
+                        case "settings.playersettings.MinPlayerCount":
+                            int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
+                            if(event.getAction() == InventoryAction.PICKUP_ALL){
+                                if(count < 10) {
+                                    plugin.getConfig().set("Settings.MinPlayerCount", count + 1);
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                                }else
+                                    player.sendMessage(Main.PREFIX+"§cYou can't go higher than 10.");
+                            }else if(event.getAction() == InventoryAction.PICKUP_HALF){
+                                if(count > 2) {
+                                    plugin.getConfig().set("Settings.MinPlayerCount", count - 1);
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                                }else
+                                    player.sendMessage(Main.PREFIX+"§cYou can't go under 2.");
+                            }
+                            break;
                     }
-
-
                 }
-
-
             }
-
-
-
         }
     }
+
+    @EventHandler
+    public void onClickSeekerInventory(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Player Settings")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
+                        case "settings.playersettings.Seeker":
+                            break;
+                        case "settings.playersettings.MinPlayerCount":
+                            int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
+                            if(event.getAction() == InventoryAction.PICKUP_ALL){
+                                if(count < 10) {
+                                    plugin.getConfig().set("Settings.MinPlayerCount", count + 1);
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                                }else
+                                    player.sendMessage(Main.PREFIX+"§cYou can't go higher than 10.");
+                            }else if(event.getAction() == InventoryAction.PICKUP_HALF){
+                                if(count > 2) {
+                                    plugin.getConfig().set("Settings.MinPlayerCount", count - 1);
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                                }else
+                                    player.sendMessage(Main.PREFIX+"§cYou can't go under 2.");
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClickEditMapInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Edit Map")) {
+            event.setCancelled(true);
+            Location location = player.getLocation();
+            String mapName = ChatColor.stripColor(event.getInventory().getItem(4).getItemMeta().getDisplayName());
+            if (event.getCurrentItem() != null) {
+                for(int i = 1; i < 11; i++){
+                    if(event.getCurrentItem().getItemMeta().getLocalizedName().equals("map.hider"+i)) {
+                        new ConfigLocationUtil(plugin, location, "Arenas." + mapName + "."+i).saveLocation();
+                        player.closeInventory();
+                        player.sendMessage("§7The §6Hider Spawn "+i+" §7 for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                    }
+                }
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
+                        case "map.seeker":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Seeker").saveLocation();
+                            player.closeInventory();
+                            player.sendMessage("§7The §6Seeker Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            break;
+                        case "map.spec":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Spectator").saveLocation();
+                            player.closeInventory();
+                            player.sendMessage("§7The §6Spectator Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            break;
+                        case "map.main":
+                            plugin.getMenuManager().createInventory(player);
+                            break;
+                        case "map.settings":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                        case "map.finish":
+                            if(isFinished(mapName)){
+                                plugin.yaml.set("Arenas."+mapName+".isFinished",true);
+                                plugin.saveData();
+                                player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+"§7 was §2successfully §7created.");
+                                player.closeInventory();
+                            }else{
+                                player.sendMessage(Main.PREFIX+"§cPlease finish the setup.");
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isFinished(String mapname){
+        for(int i = 1; i < 11; i++)
+            if(!plugin.yaml.contains("Arenas."+mapname+"."+i)) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".Seeker")) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".Spectator")) return false;
+
+        return true;
+    }
+
 }

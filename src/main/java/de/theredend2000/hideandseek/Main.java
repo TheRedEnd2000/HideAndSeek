@@ -63,25 +63,25 @@ public final class Main extends JavaPlugin {
 
     public void initVoting() {
         if(!yaml.contains("Arenas")){
-            yaml.set("Arenas.Test.Builder","TestBuilder");
+            yaml.set("Arenas.Test.Builder", "TestBuilder");
+            yaml.set("Arenas.Test.isFinished", "false");
             saveData();
         }
         maps = new ArrayList<>();
-        maps.clear();
-            for (String current : yaml.getConfigurationSection("Arenas.").getKeys(false)) {
-                Map map = new Map(this, current);
-                if (map.playable()) {
-                    maps.add(map);
-                }
-                Bukkit.broadcastMessage(String.valueOf(map));
-            }
-            if (maps.size() >= Voting.MAP_AMOUNT) {
-                voting = new Voting(this, maps);
-                Bukkit.broadcastMessage(String.valueOf(Voting.MAP_AMOUNT+maps.size()));
-            }else {
-                voting = null;
-
-            }
+        for(String current : yaml.getConfigurationSection("Arenas.").getKeys(false)) {
+            Map map = new Map(this,current);
+            if(map.playable())
+                maps.add(map);
+            else
+                Bukkit.getConsoleSender().sendMessage(Main.PREFIX+"§cDie Map §6"+map.getName()+ " §cist noch nicht fertig eingerichtet!");
+            Bukkit.getConsoleSender().sendMessage(String.valueOf(maps));
+        }
+        if(maps.size() >= Voting.MAP_AMOUNT)
+            voting = new Voting(this,maps);
+        else {
+            Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cFuer das §6Map-Voting §cmuessen mindestens §62 §cMaps eingerichtet sein!");
+            voting = null;
+        }
     }
 
     private void initManagers(){

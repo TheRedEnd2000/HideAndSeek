@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 public class RoleManager {
 
@@ -27,7 +28,7 @@ public class RoleManager {
         int playerSize = players.size();
 
         seeker = (int) Math.round(Math.log(playerSize)* 2);
-        hider = playerSize - seeker;
+        hider = (int) Math.round(Math.log(playerSize)* 2);
 
         Collections.shuffle(players);
 
@@ -35,11 +36,14 @@ public class RoleManager {
         for(int i = counter; i < seeker; i++) {
             playerRoles.put(players.get(i).getName(), Role.Seeker);
             seekerPlayers.add(players.get(i).getName());
+            players.remove(players.get(i));
         }
         counter += seeker;
 
-        for(int i = counter; i < hider + counter; i++)
+        for(int i = counter; i < hider + counter; i++) {
             playerRoles.put(players.get(i).getName(), Role.Hider);
+            players.remove(players.get(i));
+        }
     }
 
     public Role getPlayerRole(Player player) {

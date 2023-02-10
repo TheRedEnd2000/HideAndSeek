@@ -20,14 +20,11 @@ import java.util.Collections;
 
 public class LobbyCountdown extends Countdown{
 
-    private static final int COUNDTOWN_TIME = 60,
-            IDLE_TIME = 10;
+    private static final int COUNDTOWN_TIME = 60;
 
     private GameStateManager gameStateManager;
     private int seconds;
-    private int idleID;
     private boolean isRunning = false;
-    private boolean isIdling = false;
     private Main plugin;
 
     public LobbyCountdown(Main plugin, GameStateManager gameStateManager) {
@@ -123,26 +120,6 @@ public class LobbyCountdown extends Countdown{
         }
     }
 
-    public void startIdle() {
-        isIdling = true;
-        idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                for(Player current : plugin.getGamePlayer()){
-                    current.sendMessage(Main.PREFIX+"§7Bis zum Start fehlt(en) noch §6"+
-                            (plugin.getConfig().getInt("Settings.MinPlayerCount") - plugin.getGamePlayer().size())+" Spieler§7!");
-                }
-            }
-        },0,20*IDLE_TIME);
-    }
-
-    public void stopIdle() {
-        if(isIdling) {
-            isIdling = false;
-            Bukkit.getScheduler().cancelTask(idleID);
-        }
-    }
-
     public int getSeconds() {
         return seconds;
     }
@@ -153,9 +130,5 @@ public class LobbyCountdown extends Countdown{
 
     public boolean isRunning() {
         return isRunning;
-    }
-
-    public boolean isIdling() {
-        return isIdling;
     }
 }

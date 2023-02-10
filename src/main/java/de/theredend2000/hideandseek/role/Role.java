@@ -4,8 +4,8 @@ import org.bukkit.ChatColor;
 
 public enum Role{
 
-    Hider("Unschuldiger", ChatColor.GREEN),
-    Seeker("Detektive", ChatColor.RED);
+    Hider("Hider", ChatColor.GREEN),
+    Seeker("Seeker", ChatColor.RED);
 
 
     private Role(String name, ChatColor chatColor) {
