@@ -53,4 +53,8 @@ public class RoleManager {
     public ArrayList<String> getSeekerPlayers() {
         return seekerPlayers;
     }
+
+    public ArrayList<String> getHiderPlayers() {
+        return hiderPlayers;
+    }
 }
