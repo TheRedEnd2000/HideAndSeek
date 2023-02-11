@@ -2,7 +2,9 @@ package de.theredend2000.hideandseek.role;
 
 import de.theredend2000.hideandseek.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,54 +13,44 @@ import java.util.HashMap;
 public class RoleManager {
 
     private Main plugin;
-    private ArrayList<Player> players;
-    private int seekerChange, hiderChange;
     private HashMap<String, Role> playerRoles;
-    private ArrayList<Player> seekerPlayers;
-    private ArrayList<Player> hiderPlayers;
+    private ArrayList<Player> players;
+    private ArrayList<String> seekerPlayers;
+
+    private int seeker, hider;
 
     public RoleManager(Main plugin) {
         this.plugin = plugin;
-        players = new ArrayList<>();
         playerRoles = new HashMap<>();
+        players = plugin.getGamePlayer();
         seekerPlayers = new ArrayList<>();
-        hiderPlayers = new ArrayList<>();
     }
 
-    public void calculateRoles(int size) {
-        int playerSize = players.size();
+    public void calculateRoles() {
+        int playersize = players.size();
 
-        seekerChange = (int) Math.round(Math.log(playerSize) * 1.2);
-        Bukkit.getConsoleSender().sendMessage("SeekerChange "+seekerChange);
-        hiderChange = playerSize - seekerChange;
-        Bukkit.getConsoleSender().sendMessage("HiderChnage "+hiderChange);
+        seeker = (int) Math.round(Math.log(playersize)* 2);
+        hider = playersize - seeker;
 
-        Collections.shuffle(players);
+        Collections.shuffle(plugin.getGamePlayer());
 
         int counter = 0;
-        for(int i = counter; i < seekerChange; i++) {
+        for(int i = counter; i < seeker; i++) {
             playerRoles.put(players.get(i).getName(), Role.Seeker);
-            seekerPlayers.add(players.get(i));
-            Bukkit.getConsoleSender().sendMessage("Seeker add "+players.get(i).getName());
+            seekerPlayers.add(players.get(i).getName());
         }
-        /*counter += seekerChange;
+        counter += seeker;
 
-        for(int i = counter; i < hiderChange + counter; i++) {
+        for(int i = counter; i < hider + counter; i++)
             playerRoles.put(players.get(i).getName(), Role.Hider);
-            hiderPlayers.add(players.get(i));
-            Bukkit.getConsoleSender().sendMessage("Hider add "+players.get(i).getName());
-        }*/
     }
 
-    public ArrayList<Player> getSeekerPlayers() {
-        return seekerPlayers;
-    }
-
-    public Role getPlayerRoles(Player player) {
+    public Role getPlayerRole(Player player) {
         return playerRoles.get(player.getName());
     }
 
-    public ArrayList<Player> getHiderPlayers() {
-        return hiderPlayers;
+    public ArrayList<String> getSeekerPlayers() {
+        return seekerPlayers;
     }
+
 }

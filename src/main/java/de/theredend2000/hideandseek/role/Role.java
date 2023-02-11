@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 
 public enum Role{
 
-    Hider("Hider"),
-    Seeker("Seeker");
+    Hider("§2Hider"),
+    Seeker("§4Seeker");
 
 
     final String name;

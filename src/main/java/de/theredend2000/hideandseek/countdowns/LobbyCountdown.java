@@ -76,28 +76,6 @@ public class LobbyCountdown extends Countdown{
                             voting.getPlayerVotes().clear();
                             voting.initVotingInventory();
                         }
-
-                            plugin.getRoleManager().calculateRoles(plugin.getGamePlayer().size());
-
-                            ArrayList<Player> seekerPlayers = plugin.getRoleManager().getSeekerPlayers();
-                            for(Player current : plugin.getGamePlayer()) {
-                                Role playerRole = plugin.getRoleManager().getPlayerRoles(current);
-                                current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
-                                current.sendMessage(Main.PREFIX + "§7Deine Rolle ist: §6" + playerRole.getName());
-                                current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
-
-                                if (playerRole == Role.Seeker) {
-                                    current.sendMessage(Main.PREFIX + "§7Die Seeker sind: §c§l" + String.join(",", seekerPlayers.toString()));
-                                    ItemStack sword = new ItemStack(Material.IRON_SWORD);
-                                    ItemMeta swordMeta = sword.getItemMeta();
-                                    swordMeta.setUnbreakable(true);
-                                    swordMeta.setDisplayName("§cMurder Sword");
-                                    swordMeta.addEnchant(Enchantment.DAMAGE_ALL, 1000, true);
-                                    sword.setItemMeta(swordMeta);
-                                    current.getInventory().setItem(1, sword);
-                                }
-                            }
-
                     }
 
                         break;
