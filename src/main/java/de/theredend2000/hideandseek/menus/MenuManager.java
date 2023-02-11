@@ -102,6 +102,12 @@ public class MenuManager {
         Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7 The Seeker´s Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
         Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
         Seeker.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.seeker.back").build());
+        int Seekercount = plugin.getConfig().getInt("Settings.Seeker");
+        if (Seekercount <= 0){plugin.getConfig().set("Settings.Seeker", 1);}
+        if (Seekercount >= 7){plugin.getConfig().set("Settings.Seeker", 6);}
+        plugin.saveConfig();
+        int[] Disabled = new int[]{19,20,21,37,38,39};
+        for(int i = 0; i < Disabled.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§3Click to Enable").build());}
         switch (plugin.getConfig().getInt("Settings.Seeker")) {
             case 1:
                 Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye1").build());
