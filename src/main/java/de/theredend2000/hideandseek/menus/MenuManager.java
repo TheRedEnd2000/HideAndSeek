@@ -114,7 +114,7 @@ public class MenuManager {
     }
     public void createSettingsPlayerSettingsSeekerInventory(Player player) {
         Inventory Seeker = Bukkit.createInventory(player, 54,"Seeker");
-        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,52,53};
+        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,51,52,53};
         int[] orange = new int[]{10,11,12,20,29,37,38,39};
         int[] ender = new int[]{19,21};
         int[] ender2 = new int[]{14,15,16,32,33,34};
@@ -181,14 +181,13 @@ public class MenuManager {
         for (int i = 0; i < white.length; i++){Ability.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         Ability.setItem(4 , new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§3Abilities").build());
         Ability.setItem(13, new ItemBuilder(Material.LIME_CONCRETE).setDisplayname("§aAbilities Enabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_concrete").build());
-        Ability.setItem(29, new ItemBuilder(Material.SHIELD).setDisplayname("Invincible").build());
-        Ability.setItem(30, new ItemBuilder(Material.BOW).setDisplayname("Blindness").build());
-        Ability.setItem(31, new ItemBuilder(Material.TRIDENT).setDisplayname("Slowness").build());
-        Ability.setItem(32, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("Glowing").build());
-        Ability.setItem(29, new ItemBuilder(Material.BLUE_ICE).setDisplayname("Freeze").build());
+        Ability.setItem(29, new ItemBuilder(Material.SHIELD).setDisplayname("Invincible").setLocalizedName("settings.Abilities.Invincible").build());
+        Ability.setItem(30, new ItemBuilder(Material.BOW).setDisplayname("Blindness").setLocalizedName("settings.Abilities.Blindness").build());
+        Ability.setItem(31, new ItemBuilder(Material.TRIDENT).setDisplayname("Slowness").setLocalizedName("settings.Abilities.Slowness").build());
+        Ability.setItem(32, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("Glowing").setLocalizedName("settings.Abilities.Glowing").build());
+        Ability.setItem(29, new ItemBuilder(Material.BLUE_ICE).setDisplayname("Freeze").setLocalizedName("settings.Abilities.Freeze").build());
         Ability.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.Abilities.back").build());
-        Ability.setItem(45,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.back").build());
-
+        Ability.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.back").build());
         int[] DisEnabled = new int[]{38,39,40,41,42};
         for (int i = 0; i < DisEnabled.length; i++){Ability.setItem(DisEnabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disable").setLore("§3Click to Enable").build());}
         if (plugin.getConfig().getBoolean("Ability.Invincible") == true){Ability.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
@@ -196,12 +195,16 @@ public class MenuManager {
         if (plugin.getConfig().getBoolean("Ability.Slowness") == true){Ability.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
         if (plugin.getConfig().getBoolean("Ability.Glowing") == true){Ability.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
         if (plugin.getConfig().getBoolean("Ability.Freeze") == true){Ability.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
-
+        player.openInventory(Ability);
 
 
 
     }
-
+    public void createsettingsAbilitiesInvincebleInventory(Player player){
+        Inventory Invincible = Bukkit.createInventory(player,27,"Invincible");
+        int[] redglass = new int[]{0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25,26};
+        for(int i = 0; i <)
+    }
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Edit Map");
         int[] orangeglass = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53};
