@@ -44,9 +44,9 @@ public class VotingListener implements Listener {
                         }
                     }
                 }else
-                    player.sendMessage(Main.PREFIX+"§cEs läuft gerade kein Spiel oder wurde schon gestartet!");
+                    player.sendMessage(Main.PREFIX+"§cEs sind noch nicht genug Spieler im Spiel!");
             }else
-                player.sendMessage(Main.PREFIX+"§cEs läuft gerade kein Spiel oder wurde schon gestartet!");
+                player.sendMessage(Main.PREFIX+"§cDu kannst das jetzt nicht tun!");
         }
     }
 

@@ -32,6 +32,10 @@ public class MenuManager {
         mapInventory.setItem(45, new ItemBuilder(Material.ARROW).setDisplayname("§7Back").build());
         mapInventory.setItem(53, new ItemBuilder(Material.ARROW).setDisplayname("§7Next").build());
         mapInventory.setItem(50, new ItemBuilder(Material.OAK_SIGN).setDisplayname("§3Search Map").setLore("§2Click here to search for a Map.").setLocalizedName("search").build());
+        if(plugin.yaml.contains("lobby") && plugin.yaml.contains("end")) {
+            mapInventory.setItem(48, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§5Setup Lobby and End Location").setLore("§7Click to open.","","§a✔ COMPLETE").setLocalizedName("lobby/end").build());
+        }else
+            mapInventory.setItem(48, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§5Setup Lobby and End Location").setLore("§7Click to open.","","§4✘ INCOMPLETE").setLocalizedName("lobby/end").build());
         mapInventory.setItem(49, new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§6§lCreate Map").setLore("§2Click here to create a new Map.").setLocalizedName("createMap").build());
         if(plugin.yaml.contains("Arenas")) {
             for (String maps : plugin.yaml.getConfigurationSection("Arenas.").getKeys(false)) {
@@ -63,6 +67,25 @@ public class MenuManager {
         settingsInventory.setItem(31,new ItemBuilder(Material.CLOCK).setDisplayname("§2Playtime").setLore("§5LEFT-CLICK§e: §a+1 min","§5RIGHT-CLICK§e: §c-1 min","§5MIDDLE-CLICK§e: §a+10 min","§5DROP§e: §c-10 min","","§7Currently: §6"+shortInteger(time)).setLocalizedName("settings.Playtime").build());
         settingsInventory.setItem(49, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§eMain Menu").setLore("§7Click to go back to the Main Menu").setLocalizedName("settings.Mainmenu").build());
         player.openInventory(settingsInventory);
+    }
+
+    public void createLobbyAndEndInventory(Player player) {
+        Inventory lobbyAndEndLocation = Bukkit.createInventory(player, 9,"Lobby and End Location");
+        int[] redglass = new int[]{0,1,2,3,4,5,6,7,8};
+        for(int i = 0; i < redglass.length; i++) {lobbyAndEndLocation.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        lobbyAndEndLocation.setItem(0, new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLocalizedName("l-e.back").build());
+        lobbyAndEndLocation.setItem(6,new ItemBuilder(Material.BOOK).setDisplayname("§6§lInfos").setLore("").build());
+        if(plugin.yaml.contains("lobby")){
+            lobbyAndEndLocation.setItem(7,new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§2Lobby Location").setLore("§7Set the location were all players will be teleported when joining a game.","","§a✔ COMPLETE").setLocalizedName("l-e.lobby").build());
+        }else{
+            lobbyAndEndLocation.setItem(7,new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§2Lobby Location").setLore("§7Set the location were all players will be teleported when joining a game.","","§4✘ INCOMPLETE").setLocalizedName("l-e.lobby").build());
+        }
+        if(plugin.yaml.contains("end")){
+            lobbyAndEndLocation.setItem(8,new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§2Ending Location").setLore("§7Set the location were all players will be teleported after a game.","","§a✔ COMPLETE").setLocalizedName("l-e.end").build());
+        }else{
+            lobbyAndEndLocation.setItem(8,new ItemBuilder(Material.REDSTONE_BLOCK).setDisplayname("§2Ending Location").setLore("§7Set the location were all players will be teleported after a game.","","§4✘ INCOMPLETE").setLocalizedName("l-e.end").build());
+        }
+        player.openInventory(lobbyAndEndLocation);
     }
 
     public void createSettingsPlayerSettingsInventory(Player player){
@@ -140,8 +163,12 @@ public class MenuManager {
         }
         player.openInventory(Seeker);
     }
-    public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider = Bukkit.createInventory(player, 54,"Hider");int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}
-        Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider.shield").build());Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());
+    public void createSettingsPlayerSettingsHiderInventory(Player player) {
+        Inventory Hider = Bukkit.createInventory(player, 54,"Hider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};
+        for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}
+        Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider.shield").build());
+        Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());
         Hider.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.Hider.back").build());
         Hider.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eMain Menu").setLocalizedName("settings.playersettings.Hider.comperator").build());
         player.openInventory(Hider);
