@@ -82,11 +82,11 @@ public class MenuManager {
         settingsInventory.setItem(13,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§8Click for Seeker Settings").setLocalizedName("settings.playersettings.Seeker").build());
         settingsInventory.setItem(16,new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§8Click for Hider Settings").setLocalizedName("settings.playersettings.Hider").build());
         settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§1Switch§cTeam").setLore("§bActivate if you want to become a Seeker after you died").setLocalizedName("settings.playersettings.SwitchTeam").build());
-        settingsInventory.setItem(38,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
+        settingsInventory.setItem(38,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
         settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").setLocalizedName("settings.playersettings.Nothingishere").build());
-        settingsInventory.setItem(42,new ItemBuilder(Material.GREEN_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
+        settingsInventory.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
         settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
-        settingsInventory.setItem(49,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
+        settingsInventory.setItem(4,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
 
         player.openInventory(settingsInventory);
     }
@@ -128,17 +128,6 @@ public class MenuManager {
             mapInventory.setItem(32, new ItemBuilder(Material.WHITE_BED).setDisplayname("§2§lSpectator Spawn").setLore("§7Click to set the Spectator Spawn.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.spec").build());
         }else{
             mapInventory.setItem(32, new ItemBuilder(Material.WHITE_BED).setDisplayname("§2§lSpectator Spawn").setLore("§7Click to set the Spectator Spawn.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.spec").build());
-        }
-        if(plugin.yaml.contains("Arenas."+mapname+".Lobby")){
-            mapInventory.setItem(39, new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§3§lLobby Location").setLore("§7Click to set the Lobby Location.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.lobby").build());
-        }else{
-            mapInventory.setItem(39, new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§3§lLobby Location").setLore("§7Click to set the Lobby Location.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.lobby").build());
-        }
-        //delete
-        if(plugin.yaml.contains("Arenas."+mapname+".Ending")){
-            mapInventory.setItem(41, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§3§lEnding Location").setLore("§7Click to set the Ending Location.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.ending").build());
-        }else{
-            mapInventory.setItem(41, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§3§lEnding Location").setLore("§7Click to set the Ending Location.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.ending").build());
         }
         mapInventory.setItem(37, new ItemBuilder(Material.COMPARATOR).setDisplayname("§4Settings").setLore("§7Open the Settings to configurate more.","§cIt will use your coordinates and facing.").setLocalizedName("map.settings").build());
         mapInventory.setItem(43, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayname("§a§lFINISH").setLore("§7Finish the setup.","§cYou must have everything completed.","§4If it is not finished, you can't play on the map.").setLocalizedName("map.finish").build());
