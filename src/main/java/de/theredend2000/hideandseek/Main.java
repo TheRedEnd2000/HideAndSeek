@@ -30,6 +30,7 @@ public final class Main extends JavaPlugin {
     private CommandMessagesManager commandMessagesManager;
     private MenuManager mainMenuManager;
     private ArrayList<Player> gamePlayer;
+    private ArrayList<Map> canplayMaps;
     public ArrayList<Map> maps;
     private Voting voting;
     private RoleManager roleManager;
@@ -41,6 +42,7 @@ public final class Main extends JavaPlugin {
         this.yaml = YamlConfiguration.loadConfiguration(this.data);
         this.saveData();
 
+        canplayMaps = new ArrayList<>();
         gamePlayer = new ArrayList<>();
         maps = new ArrayList<>();
         initVoting();
@@ -72,6 +74,7 @@ public final class Main extends JavaPlugin {
             Map map = new Map(this,current);
             if(map.playable()) {
                 maps.add(map);
+                canplayMaps.add(map);
                 Bukkit.getConsoleSender().sendMessage("Added Map "+map.getName());
             }else
                 Bukkit.getConsoleSender().sendMessage(Main.PREFIX+"§cDie Map §6"+map.getName()+ " §cist noch nicht fertig eingerichtet!");
@@ -134,5 +137,9 @@ public final class Main extends JavaPlugin {
 
     public RoleManager getRoleManager() {
         return roleManager;
+    }
+
+    public ArrayList<Map> getCanplayMaps() {
+        return canplayMaps;
     }
 }

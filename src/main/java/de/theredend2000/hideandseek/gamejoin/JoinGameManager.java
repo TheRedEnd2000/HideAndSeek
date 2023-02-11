@@ -13,6 +13,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 public class JoinGameManager {
 
     private Main plugin;
@@ -22,9 +24,8 @@ public class JoinGameManager {
     }
 
     public void joinGame(Player player) {
-        player.sendMessage(String.valueOf(plugin.getMaps().size()));
-        if (plugin.getMaps().size() == 0) {
-            player.sendMessage(Main.PREFIX+"§cThe are no maps to play on.");
+        if (plugin.getCanplayMaps().size() == 0) {
+            player.sendMessage(Main.PREFIX+"§cThere are no maps to play on!");
             return;
         }
             if (plugin.getGameStateManager().getCurrentGameState() instanceof IngameState || plugin.getGameStateManager().getCurrentGameState() instanceof EndingState) {
@@ -52,7 +53,11 @@ public class JoinGameManager {
             player.setGameMode(GameMode.SURVIVAL);
             player.setHealthScale(20);
             player.setFoodLevel(20);
-            player.getInventory().setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayname("Vote").build());
+            if(player.isOp()){
+                player.getInventory().setItem(1, new ItemBuilder(Material.DIAMOND).setDisplayname("§2Start").build());
+            }
+            if(plugin.getVoting() != null)
+                player.getInventory().setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§6Map-Voting").build());
 
             ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "lobby");
             if (locationUtil.loadLocation() != null) {
@@ -71,37 +76,40 @@ public class JoinGameManager {
 
 
     public void leaveGame(Player player) {
-        LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
-        LobbyCountdown countdown = lobbyState.getLobbyCountdown();
-        if (plugin.getGamePlayer().contains(player)) {
-            plugin.getGamePlayer().remove(player);
-            for (Player current : plugin.getGamePlayer()) {
-                current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7left the round. §b[§2" +
-                        plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
-            }
-            if(plugin.getGamePlayer().size() == 0){
-                plugin.getGameStateManager().stopGame();
-                countdown.stop();
-            }
-            player.sendMessage(Main.PREFIX+"§cYou left the game.");
-            player.getInventory().clear();
-            player.setGameMode(GameMode.SURVIVAL);
-            player.setHealthScale(20);
-            player.setFoodLevel(20);
-
-            ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "end");
-            if (locationUtil.loadLocation() != null) {
-                player.teleport(locationUtil.loadLocation());
-            } else
-                Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie End-Location wurde noch nicht gesetzt!");
-
-            if(plugin.getGamePlayer().size() < plugin.getConfig().getInt("Settings.MinPlayerCount")){
-                if(countdown.isRunning()){
-                    countdown.stop();
+        if (plugin.getGameStateManager().getCurrentGameState() instanceof LobbyState) {
+            LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
+            LobbyCountdown countdown = lobbyState.getLobbyCountdown();
+            if (plugin.getGamePlayer().contains(player)) {
+                plugin.getGamePlayer().remove(player);
+                for (Player current : plugin.getGamePlayer()) {
+                    current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7left the round. §b[§2" +
+                            plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
                 }
-            }
-        }else
-            player.sendMessage(Main.PREFIX+"§cYou are not in the Game.");
+                if (plugin.getGamePlayer().size() == 0) {
+                    plugin.getGameStateManager().stopGame();
+                    countdown.stop();
+                    plugin.getGamePlayer().clear();
+                }
+                player.sendMessage(Main.PREFIX + "§cYou left the game.");
+                player.getInventory().clear();
+                player.setGameMode(GameMode.SURVIVAL);
+                player.setHealthScale(20);
+                player.setFoodLevel(20);
+
+                ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "end");
+                if (locationUtil.loadLocation() != null) {
+                    player.teleport(locationUtil.loadLocation());
+                } else
+                    Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie End-Location wurde noch nicht gesetzt!");
+
+                if (plugin.getGamePlayer().size() < plugin.getConfig().getInt("Settings.MinPlayerCount")) {
+                    if (countdown.isRunning()) {
+                        countdown.stop();
+                    }
+                }
+            } else
+                player.sendMessage(Main.PREFIX + "§cYou are not in the Game.");
+        }
     }
 
 

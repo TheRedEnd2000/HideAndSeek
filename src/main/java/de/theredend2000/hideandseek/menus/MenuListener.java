@@ -106,7 +106,12 @@ public class MenuListener implements Listener {
                                 String mapName = plugin.yaml.getString("CreateMaps." + player.getName() + ".Name");
                                 String mapBuilder = plugin.yaml.getString("CreateMaps." + player.getName() + ".Builder");
                                 Map map = new Map(plugin, mapName);
-                                map.create(mapBuilder);
+                                if(!map.exists()) {
+                                    map.create(mapBuilder);
+                                }else{
+                                    player.sendMessage(Main.PREFIX+"§cThis Map already exists. Please choose another name.");
+                                    return;
+                                }
                                 player.sendMessage(Main.PREFIX+"§7The Map §6"+mapName+"§7 by §6"+mapBuilder+"§7 was created§a successfully§7.");
                                 player.closeInventory();
                                 plugin.initVoting();
@@ -119,6 +124,9 @@ public class MenuListener implements Listener {
                             player.closeInventory();
                             player.sendMessage(Main.PREFIX+"§7Type map builder in Chat. Type '§4cancel§7' to cancel to task");
                             builderPlayer.add(player);
+                            break;
+                        case "createMap.main":
+                            plugin.getMenuManager().createInventory(player);
                             break;
                     }
                 }
