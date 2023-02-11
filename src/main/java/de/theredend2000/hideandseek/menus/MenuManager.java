@@ -107,7 +107,7 @@ public class MenuManager {
         if (Seekercount >= 7){plugin.getConfig().set("Settings.Seeker", 6);}
         plugin.saveConfig();
         int[] Disabled = new int[]{19,20,21,37,38,39};
-        for(int i = 0; i < Disabled.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§3Click to Enable").build());}
+        for(int i = 0; i < Disabled.length; i++){Seeker.setItem(Disabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§3Click to Enable"+(i+1)).build());}
         switch (plugin.getConfig().getInt("Settings.Seeker")) {
             case 1:
                 Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye1").build());
@@ -128,7 +128,7 @@ public class MenuManager {
                 Seeker.setItem(39,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye6").build());
                 break;
         }
-//irgendwas de
+
         player.openInventory(Seeker);
     }
     public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider = Bukkit.createInventory(player, 54,"Hider");int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}

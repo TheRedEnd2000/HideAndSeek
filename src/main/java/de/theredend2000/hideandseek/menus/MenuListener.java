@@ -236,6 +236,7 @@ public class MenuListener implements Listener {
                             break;
                         case "settings.playersettings.Hider":
                             plugin.getMenuManager().createSettingsPlayerSettingsHiderInventory(player);
+                            break;
                         case "settings.playersettings.MinPlayerCount":
                             int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
                             if(event.getAction() == InventoryAction.PICKUP_ALL){
@@ -283,6 +284,7 @@ public class MenuListener implements Listener {
                         case"settings.playersettings.seeker.back":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
+                        case
 
 
                     }
