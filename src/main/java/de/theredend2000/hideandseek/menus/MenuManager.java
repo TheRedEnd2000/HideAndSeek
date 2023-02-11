@@ -46,14 +46,9 @@ public class MenuManager {
     public void createSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Settings");
         int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53};
-        for(int i = 0; i < redglass.length; i++){
-            settingsInventory.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());
-        }
-        int[] orange = new int[]{12,13,14,19,20,21,23,24,25,28,29,30,31,32,33,34,38,39,41,42,43};
-        for(int i = 0; i < orange.length; i++)
-        {
-            settingsInventory.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
-        }
+        for(int i = 0; i < redglass.length; i++){settingsInventory.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        int[] orange = new int[]{12,13,14,19,20,21,23,24,25,28,29,30,31,32,33,34,38,39,41,42};
+        for(int i = 0; i < orange.length; i++) {settingsInventory.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         settingsInventory.setItem(4, new ItemBuilder(Material.COMPARATOR).setDisplayname("Settings").setLore("§c").build());
         ItemStack is = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta isMeta = (SkullMeta) is.getItemMeta();
@@ -72,7 +67,7 @@ public class MenuManager {
 
     public void createSettingsPlayerSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Player Settings");
-        int[] redglass2 = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,41,44,45,46,47,48,50,51,52,53};
+        int[] redglass2 = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,41,44,46,47,48,50,51,52,53};
         int[] oragne = new int[]{11,15,19,20,22,24,25,28,31,34,37,40,43};
         int[] white = new int[]{12,14,21,23,30,32,39,41};
         for(int i = 0; i < redglass2.length; i++){settingsInventory.setItem(redglass2[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
@@ -87,7 +82,7 @@ public class MenuManager {
         settingsInventory.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
         settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
         settingsInventory.setItem(4,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
-
+        settingsInventory.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.back").build());
         player.openInventory(settingsInventory);
     }
     public void createSettingsPlayerSettingsSeekerInventory(Player player) {
@@ -95,17 +90,37 @@ public class MenuManager {
         int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,51,52,53};
         int[] orange = new int[]{13,22,31,40};
         int[] ender = new int []{10,11,12,28,29,30};
+        int[] ender2 = new int[]{14,15,16,32,33,34};
         for(int i = 0; i < redglass.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < orange.length; i++){Seeker.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        for(int i = 0; i < ender.length; i++){Seeker.setItem(ender[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        for(int i = 0; i < ender.length; i++){Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+i+1).build());}
+        for(int i = 0; i < ender2.length; i++){Seeker.setItem(ender2[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§c").build());}
         Seeker.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Seeker.comperator").build());
         Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§9MaxSeekerCountBeginn").setLore("§7Maximum Player Count at the beginning of an game").setLocalizedName("settings.playersettings.Seeker.Head").build());
         Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7 The Seeker´s Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
         Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
+        Seeker.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.seeker.back").build());
+        switch (plugin.getConfig().getInt("Settings.Seeker"))
+        {
+            case 1:
+                Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.green_dye").build());
+                break;
+            case 2:
+                Seeker.setItem(20,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.green_dye").build());
+                break;
+            case 3:
+                Seeker.setItem(21,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.green_dye").build());
+                break;
+            case 4:
+                Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.green_dye").build());
+        }
         player.openInventory(Seeker);
     }
     public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider = Bukkit.createInventory(player, 54,"Hider");int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}
-        Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider").build());Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());player.openInventory(Hider);
+        Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider.shield").build());Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());
+        Hider.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.Hider.back").build());
+        Hider.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Hider.comperator").build());
+        player.openInventory(Hider);
     }
 
     public void createMapEditInventory(Player player, String mapname){

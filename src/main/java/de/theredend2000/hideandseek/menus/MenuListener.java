@@ -212,7 +212,7 @@ public class MenuListener implements Listener {
                         case "settings.playersettings":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
-                        case "settings.mainmenu":
+                        case "settings.Mainmenu":
                             plugin.getMenuManager().createInventory(player);
                             break;
                     }
@@ -220,6 +220,9 @@ public class MenuListener implements Listener {
             }
         }
     }
+    /*Errinerung: problem mit dem hider und dem min player count befehl.
+    der min playercount muss auf 10 sein sodass man das hider inventar öffnen kann.
+    ansonsten geht es nicht, habe aber es gelöst warum der player count imme rum 2 hochgegeangen ist. funktioniert jetzt wieder normal*/
     @EventHandler
     public void onClickPlayerSettingsInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -253,6 +256,13 @@ public class MenuListener implements Listener {
                                     player.sendMessage(Main.PREFIX+"§cYou can't go under 2.");
                             }
                             break;
+                        case "settings.playersettings.back":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                        case "settings.playersettings.comperator":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+
                     }
                 }
             }
@@ -262,32 +272,47 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onClickSeekerInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equals("Player Settings")) {
+        if (event.getView().getTitle().equals("Seeker")) {
             event.setCancelled(true);
             if(event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
-                        case "settings.playersettings.Seeker":
+                        case "settings.playersettings.Seeker.comperator":
+                            plugin.getMenuManager().createSettingsInventory(player);
                             break;
-                        case "settings.playersettings.MinPlayerCount":
-                            int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
-                            if(event.getAction() == InventoryAction.PICKUP_ALL){
-                                if(count < 10) {
-                                    plugin.getConfig().set("Settings.MinPlayerCount", count + 1);
-                                    plugin.saveConfig();
-                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
-                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
-                                }else
-                                    player.sendMessage(Main.PREFIX+"§cYou can't go higher than 10.");
-                            }else if(event.getAction() == InventoryAction.PICKUP_HALF){
-                                if(count > 2) {
-                                    plugin.getConfig().set("Settings.MinPlayerCount", count - 1);
-                                    plugin.saveConfig();
-                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
-                                    plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
-                                }else
-                                    player.sendMessage(Main.PREFIX+"§cYou can't go under 2.");
-                            }
+                        case"settings.playersettings.seeker.back":
+                            plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            break;
+
+
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onClickHiderInventory(InventoryClickEvent event)
+    {
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Hider"))
+        {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null)
+            {
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName())
+                {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName())
+                    {
+                        case "settings.playersettings.hider.structurvoid":
+                            player.sendMessage("I already told you, here is nothing");
+                            break;
+                        case "settings.playersettings.hider.shield":
+                            break;
+                        case "settings.playersettings.Hider.back":
+                            plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            break;
+                        case "settings.playersettings.Hider.comperator":
+                            plugin.getMenuManager().createSettingsInventory(player);
                             break;
                     }
                 }
