@@ -318,6 +318,7 @@ public class MenuListener implements Listener {
                             player.closeInventory();
                             player.sendMessage("§7The §6Lobby Location §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
                             break;
+                            //delete
                         case "map.ending":
                             new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Ending").saveLocation();
                             player.closeInventory();
