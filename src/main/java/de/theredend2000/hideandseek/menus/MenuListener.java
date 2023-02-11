@@ -328,6 +328,7 @@ public class MenuListener implements Listener {
                                 player.closeInventory();
                                 Map map = new Map(plugin, mapName);
                                 plugin.getMaps().add(map);
+                                plugin.initVoting();
                             }else{
                                 player.sendMessage(Main.PREFIX+"§cPlease finish the setup.");
                             }
