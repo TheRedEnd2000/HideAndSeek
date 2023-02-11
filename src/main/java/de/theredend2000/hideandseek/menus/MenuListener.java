@@ -404,7 +404,7 @@ public class MenuListener implements Listener {
             if (event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getItemMeta().hasLocalizedName()){
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
-                        case:
+                        case"blealal":
                             break;
                     }
                 }
