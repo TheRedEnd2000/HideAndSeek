@@ -93,15 +93,14 @@ public class MenuManager {
         int[] ender2 = new int[]{14,15,16,32,33,34};
         for(int i = 0; i < redglass.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < orange.length; i++){Seeker.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        for(int i = 1; i < ender.length; i++) {Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+i).build());}
+        for(int i = 0; i < ender.length; i++) {Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+(i+1)).build());}
         for(int i = 0; i < ender2.length; i++){Seeker.setItem(ender2[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§c").build());}
         Seeker.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Seeker.comperator").build());
         Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§9MaxSeekerCountBeginn").setLore("§7Maximum Player Count at the beginning of an game").setLocalizedName("settings.playersettings.Seeker.Head").build());
         Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7 The Seeker´s Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
         Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
         Seeker.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.seeker.back").build());
-        switch (plugin.getConfig().getInt("Settings.Seeker"))
-        {
+        switch (plugin.getConfig().getInt("Settings.Seeker")) {
             case 1:
                 Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.green_dye").build());
                 break;
