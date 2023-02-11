@@ -4,6 +4,8 @@ Settings:
   MinPlayerCount: 4
   #Time in seconds
   TimeToPlay: 360
+  #If a Hider got killed, he will become a Seeker(false = Not/ true = Yes)
+  TimeToHide: 30
   #Max Seeker
   Seeker: 2
   #If a Hider got killed, he will become a Seeker(false = Not/ true = Yes)

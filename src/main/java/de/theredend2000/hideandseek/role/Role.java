@@ -4,8 +4,8 @@ import org.bukkit.ChatColor;
 
 public enum Role{
 
-    Hider("Hider"),
-    Seeker("Seeker");
+    Hider("§2Hider"),
+    Seeker("§4Seeker");
 
 
     private Role(String name) {

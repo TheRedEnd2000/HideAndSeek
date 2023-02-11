@@ -2,17 +2,15 @@ package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.util.ItemBuilder;
-import jdk.tools.jlink.plugin.Plugin;
-import net.md_5.bungee.chat.SelectorComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class MenuManager {
 
@@ -38,7 +36,7 @@ public class MenuManager {
         if(plugin.yaml.contains("Arenas")) {
             for (String maps : plugin.yaml.getConfigurationSection("Arenas.").getKeys(false)) {
                 String author = plugin.yaml.getString("Arenas." + maps + ".Builder");
-                mapInventory.addItem(new ItemBuilder(Material.PAPER).setDisplayname("§5§l"+maps).setLore("", "§7Builder: §6" + author, "", "§7Finished: §6§l"+plugin.yaml.getBoolean("Arenas."+maps+".isFinished"), "§2LEFT-CLICK §7Select this Map and Open Options", "§2RIGHT-CLICK §7Delete the Map").build());
+                    mapInventory.addItem(new ItemBuilder(Material.PAPER).setDisplayname("§5§l" + maps).setLore("", "§7Builder: §6" + author, "", "§7Finished: §6§l" + plugin.yaml.getBoolean("Arenas." + maps + ".isFinished"), "§2LEFT-CLICK §7Select this Map and Open Options", "§2RIGHT-CLICK §7Delete the Map").build());
             }
         }else
             mapInventory.setItem(22, new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§4No Maps").setLore("§2Click the emerald block to create one.").build());
@@ -49,9 +47,9 @@ public class MenuManager {
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Settings");
         int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,16,17,18,26,27,35,36,37,43,44,45,46,47,48,50,51,52,53};
         for(int i = 0; i < redglass.length; i++){settingsInventory.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        int[] orange = new int[]{12,13,14,19,20,21,23,24,25,28,29,30,31,32,33,34,38,39,41,42};
+        int[] orange = new int[]{12,13,14,19,20,21,23,24,25,28,29,30,22,32,33,34,38,39,40,41,42};
         for(int i = 0; i < orange.length; i++) {settingsInventory.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        settingsInventory.setItem(4, new ItemBuilder(Material.COMPARATOR).setDisplayname("Settings").setLore("§c").build());
+        settingsInventory.setItem(4, new ItemBuilder(Material.COMPARATOR).setDisplayname("§4Settings").build());
         ItemStack is = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta isMeta = (SkullMeta) is.getItemMeta();
         isMeta.setOwner("craftingtable");
@@ -60,9 +58,9 @@ public class MenuManager {
         isMeta.setLocalizedName("settings.playersettings");
         is.setItemMeta(isMeta);
         settingsInventory.setItem(11, is);
-        settingsInventory.setItem(15,new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("Abilitys").setLore("Click her to open the Ability Menu").setLocalizedName("settings.Ability").build());
-        settingsInventory.setItem(22,new ItemBuilder(Material.CLOCK).setDisplayname("Playtime").setLore("Click here to open the Playtime Menu").setLocalizedName("settings.Playtime").build());
-        settingsInventory.setItem(40,new ItemBuilder(Material.FEATHER).setDisplayname("Spectator").setLore("Click to switch the ...").setLocalizedName("settings.Spactator").build());
+        settingsInventory.setItem(15,new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§5Abilitys").setLore("Click her to open the Ability Menu").setLocalizedName("settings.Ability").build());
+        int time = plugin.getConfig().getInt("Settings.TimeToPlay");
+        settingsInventory.setItem(31,new ItemBuilder(Material.CLOCK).setDisplayname("§2Playtime").setLore("§5LEFT-CLICK§e: §a+1 min","§5LEFT-CLICK§e: §a+1 min","§5RIGHT-CLICK§e: §c-1 min","§5MIDDLE-CLICK§e: §a+10 min","§5DROP§e: §c-10 min","","§7Currently: §6"+shortInteger(time)).setLocalizedName("settings.Playtime").build());
         settingsInventory.setItem(49, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§eMain Menu").setLore("§7Click to go back to the Main Menu").setLocalizedName("settings.Mainmenu").build());
         player.openInventory(settingsInventory);
     }
@@ -70,84 +68,73 @@ public class MenuManager {
     public void createSettingsPlayerSettingsInventory(Player player){
         Inventory settingsInventory = Bukkit.createInventory(player, 54, "Player Settings");
         int[] redglass2 = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,35,36,41,44,46,47,48,50,51,52,53};
-        int[] oragne = new int[]{11,15,19,20,22,24,25,28,31,34,37,40,43};
+        int[] oragne = new int[]{11,15,19,20,22,24,25,28,34,37,40,43};
         int[] white = new int[]{12,14,21,23,30,32,39,41};
         for(int i = 0; i < redglass2.length; i++){settingsInventory.setItem(redglass2[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < oragne.length; i++){settingsInventory.setItem(oragne[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < white.length; i++){settingsInventory.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        settingsInventory.setItem(10, new ItemBuilder(Material.REDSTONE_TORCH).setDisplayname("§3MinPlayerCount").setLore("§6LEFT-CLICK §e: §a+1","§6RIGHT-CLICK §e: §a-1","§7Currently§e:§5 "+plugin.getConfig().getInt("Settings.MinPlayerCount")).setLocalizedName("settings.playersettings.MinPlayerCount").build());
-        settingsInventory.setItem(13,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§8Click for Seeker Settings").setLocalizedName("settings.playersettings.Seeker").build());
-        settingsInventory.setItem(16,new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§8Click for Hider Settings").setLocalizedName("settings.playersettings.Hider").build());
-        settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§1Switch§cTeam").setLore("§bActivate if you want to become a Seeker after you died").setLocalizedName("settings.playersettings.SwitchTeam").build());
-        settingsInventory.setItem(38,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§8Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.Green_Dye").build());
-        settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").setLocalizedName("settings.playersettings.Nothingishere").build());
-        settingsInventory.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§c").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
-        settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.comperator").build());
-        settingsInventory.setItem(4,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§ePlayer Settings").setLore("§c").setLocalizedName("settings.playersettings.head").build());
-        settingsInventory.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.back").build());
+        settingsInventory.setItem(31, new ItemBuilder(Material.REDSTONE_TORCH).setDisplayname("§3MinPlayerCount").setLore("§6LEFT-CLICK §e: §a+1","§6RIGHT-CLICK §e: §a-1","§7Currently§e:§5 "+plugin.getConfig().getInt("Settings.MinPlayerCount")).setLocalizedName("settings.playersettings.MinPlayerCount").build());
+        settingsInventory.setItem(13,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§7Click for Seeker Settings").setLocalizedName("settings.playersettings.Seeker").build());
+        settingsInventory.setItem(16,new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§7Click for Hider Settings").setLocalizedName("settings.playersettings.Hider").build());
+        settingsInventory.setItem(29,new ItemBuilder(Material.OAK_DOOR).setDisplayname("§bSwitchTeam").setLore("§7Activate if you want to become a Seeker after you died as Hider").build());
+        settingsInventory.setItem(33,new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§8Nothing is here too").build());
+        if(plugin.getConfig().getBoolean("Settings.SwitchTeam")){
+            settingsInventory.setItem(38,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§7Click to Disable").setLocalizedName("settings.playersettings.SwitchTeam.en").build());
+        }else
+            settingsInventory.setItem(38,new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§7Click to Enable").setLocalizedName("settings.playersettings.SwitchTeam.dis").build());
+        settingsInventory.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLocalizedName("settings.playersettings.Nothingishere.Green_dye").build());
+        settingsInventory.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eMain Menu").setLocalizedName("settings.playersettings.comperator").build());
+        settingsInventory.setItem(4,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6Player Settings").build());
+        settingsInventory.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLocalizedName("settings.playersettings.back").build());
+        settingsInventory.setItem(10,new ItemBuilder(Material.FEATHER).setDisplayname("§5Spectators").setLocalizedName("settings.playersettings.Spectator").build());
         player.openInventory(settingsInventory);
     }
     public void createSettingsPlayerSettingsSeekerInventory(Player player) {
         Inventory Seeker = Bukkit.createInventory(player, 54,"Seeker");
-        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,35,36,44,45,46,47,48,50,52,53};
-        int[] orange = new int[]{13,22,31,40};
-        int[] ender = new int []{10,11,12,28,29,30};
-        int[] ender2 = new int[]{14,15,16,32,33};
+        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,52,53};
+        int[] orange = new int[]{10,11,12,20,29,37,38,39};
+        int[] ender = new int[]{19,21};
+        int[] ender2 = new int[]{14,15,16,32,33,34};
         for(int i = 0; i < redglass.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < orange.length; i++){Seeker.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        for(int i = 0; i < ender.length; i++) {Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+(i+1)).build());}
+        for(int i = 0; i < ender.length; i++){Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§bSeeker§e: "+(i+1)).build());}
         for(int i = 0; i < ender2.length; i++){Seeker.setItem(ender2[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§bTime§e: "+(i+1)*10).setLore("§7Time in Seconds").build());}
-        Seeker.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Seeker.comperator").build());
-        Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§9MaxSeekerCountBeginn").setLore("§7Maximum Player Count at the beginning of an game").setLocalizedName("settings.playersettings.Seeker.Head").build());
-        Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7 The Seeker´s Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
-        Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§d TimetoSpawn").setLore("§1How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
-        Seeker.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.seeker.back").build());
-        Seeker.setItem(51,new ItemBuilder(Material.OAK_SIGN).setDisplayname("§fCustom Time").setLore("§7 In Seconds").setLocalizedName("settings.playersettings.seeker.Search").build());
-        Seeker.setItem(34,new ItemBuilder(Material.ENDER_PEARL).setDisplayname("§b Custom Time§e: "+(plugin.getConfig().getInt("Settings.HidingTime"))).setLore("§7 In Seconds").setLocalizedName("settings.playersettings.seeker.Search").build());
-        int Seekercount = plugin.getConfig().getInt("Settings.Seeker");
-        if (Seekercount <= 0){plugin.getConfig().set("Settings.Seeker", 1);}
-        if (Seekercount >= 7){plugin.getConfig().set("Settings.Seeker", 6);}
+        Seeker.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§4Settings Menu").setLocalizedName("settings.playersettings.Seeker.comperator").build());
+        Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§6Max Seeker").setLore("§7Maximum Seeker Count in a game.").setLocalizedName("settings.playersettings.Seeker.Head").build());
+        Seeker.setItem(4,new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§cSeeker").setLore("§7The Seeker's Menu").setLocalizedName("settings.playersettings.Seeker.Sword").build());
+        Seeker.setItem(6,new ItemBuilder(Material.COMMAND_BLOCK).setDisplayname("§6TimeToSpawn").setLore("§7How much time the Hider have before the Seeker Spawn").setLocalizedName("settings.playersettings.Seeker.Commandblock").build());
+        Seeker.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§8Back").setLocalizedName("settings.playersettings.seeker.back").build());
         plugin.saveConfig();
-        int[] Disabled = new int[]{19,20,21,37,38,39};
+        int[] Disabled = new int[]{28,30};
         int[] Disabled2 = new int[]{23,24,25,41,42,43};
-        for(int i = 0; i < Disabled.length; i++){Seeker.setItem(Disabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§3Click to Enable").setLocalizedName("settings.playersettings.Seeker.red_dye"+(i+1)).build());}
-        for(int i = 0; i < Disabled2.length; i++){Seeker.setItem(Disabled2[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disabled").setLore("§3Click to Enable").setLocalizedName("settings.playersettings.Seeker.red_dye.s"+(i+1)).build());}
+        for(int i = 0; i < Disabled.length; i++){Seeker.setItem(Disabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Click to Select").setLocalizedName("settings.playersettings.Seeker.select"+(i+1)).build());}
+        for(int i = 0; i < Disabled2.length; i++){Seeker.setItem(Disabled2[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Click to Select").setLocalizedName("settings.playersettings.Seeker.select.time"+(i+1)*10).build());}
         switch (plugin.getConfig().getInt("Settings.Seeker")) {
             case 1:
-                Seeker.setItem(19,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye1").build());
+                Seeker.setItem(28, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
             case 2:
-                Seeker.setItem(20,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye2").build());
-                break;
-            case 3:
-                Seeker.setItem(21,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye3").build());
-                break;
-            case 4:
-                Seeker.setItem(37,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye4").build());
-                break;
-            case 5:
-                Seeker.setItem(38,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye5").build());
-                break;
-            case 6:
-                Seeker.setItem(39,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_dye6").build());
+                Seeker.setItem(30,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
         }
-        switch (plugin.getConfig().getInt("Settings.HidingTime"))
-        {
+        switch (plugin.getConfig().getInt("Settings.TimeToHide")) {
             case 10:
-                Seeker.setItem(23,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_Dye.s.1").build());
+                Seeker.setItem(23,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
             case 20:
-                Seeker.setItem(24,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_Dye.s.2").build());
+                Seeker.setItem(24,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
             case 30:
-                Seeker.setItem(25,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_Dye.s.3").build());
+                Seeker.setItem(25,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
             case 40:
-                Seeker.setItem(41,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_Dye.s.4").build());
+                Seeker.setItem(41,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
             case 50:
-                Seeker.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.playersettings.Seeker.Lime_Dye.s.5").build());
+                Seeker.setItem(42,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
+                break;
+            case 60:
+                Seeker.setItem(43,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
 
         }
@@ -156,7 +143,7 @@ public class MenuManager {
     public void createSettingsPlayerSettingsHiderInventory(Player player) {Inventory Hider = Bukkit.createInventory(player, 54,"Hider");int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53};for(int i = 0; i < redglass.length; i++){Hider.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").setLore("§c").setLocalizedName("hider").build());}
         Hider.setItem(4, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§c").setLocalizedName("settings.playersettings.hider.shield").build());Hider.setItem(22, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§0Nothingishere").setLore("§7 but...").setLocalizedName("settings.playersettings.hider.structurvoid").build());
         Hider.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.playersettings.Hider.back").build());
-        Hider.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Hider.comperator").build());
+        Hider.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eMain Menu").setLocalizedName("settings.playersettings.Hider.comperator").build());
         player.openInventory(Hider);
     }
 
@@ -221,6 +208,33 @@ public class MenuManager {
         settingsInventory.setItem(24, new ItemBuilder(Material.GRASS_BLOCK).setDisplayname("§3Builder").setLore("§7Click to set the Map Builder","§2Currently: §6"+plugin.yaml.getString("CreateMaps."+player.getName()+".Builder")).setLocalizedName("createMap.builder").build());
         settingsInventory.setItem(40, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§eMain Menu").setLocalizedName("createMap.main").build());
         player.openInventory(settingsInventory);
+    }
+
+    public static String shortInteger(int duration) {
+        String string = "";
+
+        int minutes = 0;
+        int seconds = 0;
+
+        if(duration / 60 >= 1){
+            minutes = duration / 60;
+            duration = duration - ((duration / 60 ) * 60);
+        }
+        if(duration >=1){
+            seconds = duration;
+        }
+        if(minutes <= 9){
+            string = string + "0"+minutes+":";
+        }else {
+            string = string+minutes+":";
+        }
+        if(seconds <= 9){
+            string = string + "0"+seconds;
+        }else {
+            string = string+seconds;
+        }
+
+        return string;
     }
 
 }

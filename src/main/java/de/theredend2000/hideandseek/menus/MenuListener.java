@@ -215,14 +215,32 @@ public class MenuListener implements Listener {
                         case "settings.Mainmenu":
                             plugin.getMenuManager().createInventory(player);
                             break;
+                        case "settings.Playtime":
+                            int time = plugin.getConfig().getInt("Settings.TimeToPlay");
+                            if(event.getAction() == InventoryAction.PICKUP_ALL){
+                                plugin.getConfig().set("Settings.TimeToPlay", (time+1));
+                                plugin.saveConfig();
+                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL,5,5);
+                            }else if(event.getAction() == InventoryAction.PICKUP_HALF){
+                                plugin.getConfig().set("Settings.TimeToPlay", (time-1));
+                                plugin.saveConfig();
+                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS,5,5);
+                            }else if(event.getAction() == InventoryAction.CLONE_STACK){
+                                plugin.getConfig().set("Settings.TimeToPlay", (time+10));
+                                plugin.saveConfig();
+                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,5,5);
+                            }else if(event.getAction() == InventoryAction.DROP_ONE_SLOT){
+                                plugin.getConfig().set("Settings.TimeToPlay", (time-10));
+                                plugin.saveConfig();
+                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM,5,5);
+                            }
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
                     }
                 }
             }
         }
     }
-    /*Errinerung: problem mit dem hider und dem min player count befehl.
-    der min playercount muss auf 10 sein sodass man das hider inventar öffnen kann.
-    ansonsten geht es nicht, habe aber es gelöst warum der player count imme rum 2 hochgegeangen ist. funktioniert jetzt wieder normal*/
     @EventHandler
     public void onClickPlayerSettingsInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
@@ -236,6 +254,16 @@ public class MenuListener implements Listener {
                             break;
                         case "settings.playersettings.Hider":
                             plugin.getMenuManager().createSettingsPlayerSettingsHiderInventory(player);
+                            break;
+                        case "settings.playersettings.SwitchTeam.en":
+                            plugin.getConfig().set("Settings.SwitchTeam", false);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            break;
+                        case "settings.playersettings.SwitchTeam.dis":
+                            plugin.getConfig().set("Settings.SwitchTeam", true);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
                         case "settings.playersettings.MinPlayerCount":
                             int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
@@ -284,62 +312,45 @@ public class MenuListener implements Listener {
                         case"settings.playersettings.seeker.back":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye1":
+                        case "settings.playersettings.Seeker.select1":
                             plugin.getConfig().set("Settings.Seeker",1);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye2":
+                        case "settings.playersettings.Seeker.select2":
                             plugin.getConfig().set("Settings.Seeker",2);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye3":
-                            plugin.getConfig().set("Settings.Seeker",3);
+                        case "settings.playersettings.Seeker.select.time10":
+                            plugin.getConfig().set("Settings.TimeToHide",10);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye4":
-                            plugin.getConfig().set("Settings.Seeker",4);
+                        case "settings.playersettings.Seeker.select.time20":
+                            plugin.getConfig().set("Settings.TimeToHide",20);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye5":
-                            plugin.getConfig().set("Settings.Seeker",5);
+                        case "settings.playersettings.Seeker.select.time30":
+                            plugin.getConfig().set("Settings.TimeToHide",30);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye6":
-                            plugin.getConfig().set("Settings.Seeker",6);
+                        case "settings.playersettings.Seeker.select.time40":
+                            plugin.getConfig().set("Settings.TimeToHide",40);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye.s1":
-                            plugin.getConfig().set("Settings.HidingTime",10);
+                        case "settings.playersettings.Seeker.select.time50":
+                            plugin.getConfig().set("Settings.TimeToHide",50);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;
-                        case"settings.playersettings.Seeker.red_dye.s2":
-                            plugin.getConfig().set("Settings.HidingTime",20);
+                        case "settings.playersettings.Seeker.select.time60":
+                            plugin.getConfig().set("Settings.TimeToHide",60);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
-                            break;
-                        case"settings.playersettings.Seeker.red_dye.s3":
-                            plugin.getConfig().set("Settings.HidingTime",30);
-                            plugin.saveConfig();
-                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
-                            break;
-                        case"settings.playersettings.Seeker.red_dye.s4":
-                            plugin.getConfig().set("Settings.HidingTime",40);
-                            plugin.saveConfig();
-                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
-                            break;
-                        case"settings.playersettings.Seeker.red_dye.s5":
-                            plugin.getConfig().set("Settings.HidingTime",50);
-                            plugin.saveConfig();
-                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
-                            break;
-                        case "settings.playersettings.Seeker.red_dye.s6":
                             break;
                     }
                 }
@@ -347,18 +358,13 @@ public class MenuListener implements Listener {
         }
     }
     @EventHandler
-    public void onClickHiderInventory(InventoryClickEvent event)
-    {
+    public void onClickHiderInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equals("Hider"))
-        {
+        if (event.getView().getTitle().equals("Hider")) {
             event.setCancelled(true);
-            if (event.getCurrentItem() != null)
-            {
-                if(event.getCurrentItem().getItemMeta().hasLocalizedName())
-                {
-                    switch (event.getCurrentItem().getItemMeta().getLocalizedName())
-                    {
+            if (event.getCurrentItem() != null) {
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
                         case "settings.playersettings.hider.structurvoid":
                             player.sendMessage("I already told you, here is nothing");
                             break;
