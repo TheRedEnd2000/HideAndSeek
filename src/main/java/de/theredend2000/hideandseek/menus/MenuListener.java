@@ -3,18 +3,12 @@ package de.theredend2000.hideandseek.menus;
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.util.ConfigLocationUtil;
 import de.theredend2000.hideandseek.voting.Map;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
-import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -217,23 +211,26 @@ public class MenuListener implements Listener {
                             break;
                         case "settings.Playtime":
                             int time = plugin.getConfig().getInt("Settings.TimeToPlay");
-                            if(event.getAction() == InventoryAction.PICKUP_ALL){
-                                plugin.getConfig().set("Settings.TimeToPlay", (time+1));
-                                plugin.saveConfig();
-                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL,5,5);
-                            }else if(event.getAction() == InventoryAction.PICKUP_HALF){
-                                plugin.getConfig().set("Settings.TimeToPlay", (time-1));
-                                plugin.saveConfig();
-                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS,5,5);
-                            }else if(event.getAction() == InventoryAction.CLONE_STACK){
-                                plugin.getConfig().set("Settings.TimeToPlay", (time+10));
-                                plugin.saveConfig();
-                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING,5,5);
-                            }else if(event.getAction() == InventoryAction.DROP_ONE_SLOT){
-                                plugin.getConfig().set("Settings.TimeToPlay", (time-10));
-                                plugin.saveConfig();
-                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM,5,5);
-                            }
+                                if (event.getAction() == InventoryAction.PICKUP_ALL) {
+                                    if(time < time +60) {
+                                        plugin.getConfig().set("Settings.TimeToPlay", time + 60);
+                                        plugin.saveConfig();
+                                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 5, 5);
+                                    }else
+                                        player.sendMessage(Main.PREFIX+"§cYou can only set the time between 2 and 60 minutes");
+                                } else if (event.getAction() == InventoryAction.PICKUP_HALF) {
+                                    plugin.getConfig().set("Settings.TimeToPlay", time - 60);
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 5, 5);
+                                } else if (event.getAction() == InventoryAction.CLONE_STACK) {
+                                    plugin.getConfig().set("Settings.TimeToPlay", time + (10*60));
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                                } else if (event.getAction() == InventoryAction.DROP_ONE_SLOT) {
+                                    plugin.getConfig().set("Settings.TimeToPlay", time - (10*60));
+                                    plugin.saveConfig();
+                                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, 5, 5);
+                                }
                             plugin.getMenuManager().createSettingsInventory(player);
                             break;
                     }
@@ -259,11 +256,13 @@ public class MenuListener implements Listener {
                             plugin.getConfig().set("Settings.SwitchTeam", false);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.SwitchTeam.dis":
                             plugin.getConfig().set("Settings.SwitchTeam", true);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.MinPlayerCount":
                             int count = plugin.getConfig().getInt("Settings.MinPlayerCount");
@@ -316,39 +315,47 @@ public class MenuListener implements Listener {
                             plugin.getConfig().set("Settings.Seeker",1);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select2":
                             plugin.getConfig().set("Settings.Seeker",2);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time10":
                             plugin.getConfig().set("Settings.TimeToHide",10);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time20":
                             plugin.getConfig().set("Settings.TimeToHide",20);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time30":
                             plugin.getConfig().set("Settings.TimeToHide",30);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time40":
                             plugin.getConfig().set("Settings.TimeToHide",40);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time50":
                             plugin.getConfig().set("Settings.TimeToHide",50);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             break;
                         case "settings.playersettings.Seeker.select.time60":
                             plugin.getConfig().set("Settings.TimeToHide",60);
+                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP,5,5);
                             plugin.saveConfig();
                             plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
                             break;

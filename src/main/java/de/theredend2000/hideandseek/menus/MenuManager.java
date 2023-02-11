@@ -60,7 +60,7 @@ public class MenuManager {
         settingsInventory.setItem(11, is);
         settingsInventory.setItem(15,new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§5Abilitys").setLore("Click her to open the Ability Menu").setLocalizedName("settings.Ability").build());
         int time = plugin.getConfig().getInt("Settings.TimeToPlay");
-        settingsInventory.setItem(31,new ItemBuilder(Material.CLOCK).setDisplayname("§2Playtime").setLore("§5LEFT-CLICK§e: §a+1 min","§5LEFT-CLICK§e: §a+1 min","§5RIGHT-CLICK§e: §c-1 min","§5MIDDLE-CLICK§e: §a+10 min","§5DROP§e: §c-10 min","","§7Currently: §6"+shortInteger(time)).setLocalizedName("settings.Playtime").build());
+        settingsInventory.setItem(31,new ItemBuilder(Material.CLOCK).setDisplayname("§2Playtime").setLore("§5LEFT-CLICK§e: §a+1 min","§5RIGHT-CLICK§e: §c-1 min","§5MIDDLE-CLICK§e: §a+10 min","§5DROP§e: §c-10 min","","§7Currently: §6"+shortInteger(time)).setLocalizedName("settings.Playtime").build());
         settingsInventory.setItem(49, new ItemBuilder(Material.NETHER_STAR).setDisplayname("§eMain Menu").setLore("§7Click to go back to the Main Menu").setLocalizedName("settings.Mainmenu").build());
         player.openInventory(settingsInventory);
     }
