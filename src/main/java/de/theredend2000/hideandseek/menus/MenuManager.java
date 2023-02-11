@@ -134,6 +134,7 @@ public class MenuManager {
         }else{
             mapInventory.setItem(39, new ItemBuilder(Material.EMERALD_BLOCK).setDisplayname("§3§lLobby Location").setLore("§7Click to set the Lobby Location.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.lobby").build());
         }
+        //delete
         if(plugin.yaml.contains("Arenas."+mapname+".Ending")){
             mapInventory.setItem(41, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§3§lEnding Location").setLore("§7Click to set the Ending Location.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.ending").build());
         }else{
