@@ -15,7 +15,14 @@ Settings:
   #If enabled, switch to Spectator mode after death in-game(false = Not/ true = Yes)
   SpectatorMode: true
   #Enable Ability´s
-  Ability: false
+  Ability:
+    Invincible:
+    Blindness:
+    Slowness:
+    Glowing:
+    Freeze:
+
+
 
 #Massages
 Messages:

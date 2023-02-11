@@ -262,6 +262,9 @@ public class MenuListener implements Listener {
                                 }
                             plugin.getMenuManager().createSettingsInventory(player);
                             break;
+                        case "settings.Ability":
+                            plugin.getMenuManager().createSettingsAbillitysInventory(player);
+                            break;
                     }
                 }
             }
