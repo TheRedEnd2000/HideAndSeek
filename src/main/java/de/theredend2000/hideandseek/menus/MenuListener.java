@@ -397,6 +397,21 @@ public class MenuListener implements Listener {
         }
     }
     @EventHandler
+    public void onClickAbilitiesInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Abilities")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
     public void onClickHiderInventory(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (event.getView().getTitle().equals("Hider")) {
