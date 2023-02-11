@@ -343,8 +343,6 @@ public class MenuListener implements Listener {
             if(!plugin.yaml.contains("Arenas."+mapname+"."+i)) return false;
         if(!plugin.yaml.contains("Arenas."+mapname+".Seeker")) return false;
         if(!plugin.yaml.contains("Arenas."+mapname+".Spectator")) return false;
-        if(!plugin.yaml.contains("Arenas."+mapname+".Lobby")) return false;
-        if(!plugin.yaml.contains("Arenas."+mapname+".Ending")) return false;
 
         return true;
     }
