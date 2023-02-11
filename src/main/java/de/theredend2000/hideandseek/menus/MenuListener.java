@@ -284,9 +284,63 @@ public class MenuListener implements Listener {
                         case"settings.playersettings.seeker.back":
                             plugin.getMenuManager().createSettingsPlayerSettingsInventory(player);
                             break;
-                        case
-
-
+                        case"settings.playersettings.Seeker.red_dye1":
+                            plugin.getConfig().set("Settings.Seeker",1);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye2":
+                            plugin.getConfig().set("Settings.Seeker",2);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye3":
+                            plugin.getConfig().set("Settings.Seeker",3);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye4":
+                            plugin.getConfig().set("Settings.Seeker",4);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye5":
+                            plugin.getConfig().set("Settings.Seeker",5);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye6":
+                            plugin.getConfig().set("Settings.Seeker",6);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye.s1":
+                            plugin.getConfig().set("Settings.HidingTime",10);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye.s2":
+                            plugin.getConfig().set("Settings.HidingTime",20);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye.s3":
+                            plugin.getConfig().set("Settings.HidingTime",30);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye.s4":
+                            plugin.getConfig().set("Settings.HidingTime",40);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case"settings.playersettings.Seeker.red_dye.s5":
+                            plugin.getConfig().set("Settings.HidingTime",50);
+                            plugin.saveConfig();
+                            plugin.getMenuManager().createSettingsPlayerSettingsSeekerInventory(player);
+                            break;
+                        case "settings.playersettings.Seeker.red_dye.s6":
+                            break;
                     }
                 }
             }
