@@ -81,9 +81,9 @@ public class LobbyCountdown extends Countdown{
 
                             ArrayList<Player> seekerPlayers = plugin.getRoleManager().getSeekerPlayers();
                             for(Player current : plugin.getGamePlayer()) {
-                                Role playerRole = plugin.getRoleManager().getPlayerRole(current);
+                                Role playerRole = plugin.getRoleManager().getPlayerRoles(current);
                                 current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
-                                current.sendMessage(Main.PREFIX + "§7Deine Rolle ist: §l" + playerRole.getName());
+                                current.sendMessage(Main.PREFIX + "§7Deine Rolle ist: §6" + playerRole.getName());
                                 current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
 
                                 if (playerRole == Role.Seeker) {

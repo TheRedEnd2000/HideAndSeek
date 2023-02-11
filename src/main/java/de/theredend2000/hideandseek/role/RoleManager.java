@@ -41,20 +41,20 @@ public class RoleManager {
             seekerPlayers.add(players.get(i));
             Bukkit.getConsoleSender().sendMessage("Seeker add "+players.get(i).getName());
         }
-        counter += seekerChange;
+        /*counter += seekerChange;
 
         for(int i = counter; i < hiderChange + counter; i++) {
             playerRoles.put(players.get(i).getName(), Role.Hider);
             hiderPlayers.add(players.get(i));
             Bukkit.getConsoleSender().sendMessage("Hider add "+players.get(i).getName());
-        }
+        }*/
     }
 
     public ArrayList<Player> getSeekerPlayers() {
         return seekerPlayers;
     }
 
-    public Role getPlayerRole(Player player) {
+    public Role getPlayerRoles(Player player) {
         return playerRoles.get(player.getName());
     }
 

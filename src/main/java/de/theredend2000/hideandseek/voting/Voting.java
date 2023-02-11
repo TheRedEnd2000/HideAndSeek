@@ -41,7 +41,7 @@ public class Voting {
     }
 
     public void initVotingInventory() {
-        votingInventory = Bukkit.createInventory(null, 9*1, Voting.VOTING_INVENTORY_TITLE);
+        votingInventory = Bukkit.createInventory(null, 9, Voting.VOTING_INVENTORY_TITLE);
         for(int i = 0; i < votingMaps.length; i++) {
             Map currentMap = votingMaps[i];
             votingInventory.setItem(votingInventoryOrder[i], new ItemBuilder(Material.PAPER)

@@ -29,7 +29,10 @@ public class VotingListener implements Listener {
         ItemStack item = player.getItemInHand();
         if(item.getItemMeta() == null) return;
         if(item.getItemMeta().getDisplayName().equals("§6Map-Voting")) {
-            player.openInventory(voting.getVotingInventory());
+            if(plugin.getVoting() != null) {
+                player.openInventory(voting.getVotingInventory());
+            }else
+                player.sendMessage(Main.PREFIX+"§cAn Error corrupted. Please restart or reload the server!");
         }
         if(item.getItemMeta().getDisplayName().equals("§2Start")){
             if(plugin.getGameStateManager().getCurrentGameState() instanceof LobbyState) {
@@ -39,9 +42,6 @@ public class VotingListener implements Listener {
                     player.sendMessage(Main.PREFIX+"§2Der Start wurde beschleunigt!");
                     for(Player current: plugin.getGamePlayer()) {
                         current.sendMessage(Main.PREFIX + "§aDer Start wurde von §6" + player.getDisplayName() + "§a beschleunigt");
-                        if(current.isOp()){
-                            current.getInventory().remove(new ItemStack(Material.DIAMOND));
-                        }
                     }
                 }else
                     player.sendMessage(Main.PREFIX+"§cEs sind noch nicht genug Spieler im Spiel!");
