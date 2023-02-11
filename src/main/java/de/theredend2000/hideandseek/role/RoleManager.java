@@ -27,6 +27,7 @@ public class RoleManager {
     }
 
     public void calculateRoles() {
+        //Delete
         int playersize = players.size();
 
         seeker = (int) Math.round(Math.log(playersize)* 2);
