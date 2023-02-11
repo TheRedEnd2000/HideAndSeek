@@ -27,22 +27,18 @@ public class RoleManager {
     public void calculateRoles(int size) {
         int playerSize = players.size();
 
-        seeker = (int) Math.round(Math.log(playerSize)* 2);
-        hider = (int) Math.round(Math.log(playerSize)* 2);
+        seeker = (int) Math.round(Math.log(playerSize) * 1.2);
 
         Collections.shuffle(players);
 
         int counter = 0;
         for(int i = counter; i < seeker; i++) {
             playerRoles.put(players.get(i).getName(), Role.Seeker);
-            seekerPlayers.add(players.get(i).getName());
-            players.remove(players.get(i));
         }
         counter += seeker;
 
         for(int i = counter; i < hider + counter; i++) {
             playerRoles.put(players.get(i).getName(), Role.Hider);
-            players.remove(players.get(i));
         }
     }
 
