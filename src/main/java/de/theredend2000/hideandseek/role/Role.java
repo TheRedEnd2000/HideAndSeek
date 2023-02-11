@@ -8,7 +8,7 @@ public enum Role{
     Seeker("§4Seeker");
 
 
-    final String name;
+    public String name;
     private Role(String name2) {
         this.name = name2;
         //Delete
