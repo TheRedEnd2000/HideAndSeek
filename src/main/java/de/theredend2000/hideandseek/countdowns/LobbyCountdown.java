@@ -73,22 +73,21 @@ public class LobbyCountdown extends Countdown{
                         Voting voting = plugin.getVoting();
                         if (voting.getPlayerVotes().containsKey(player.getName())) {
                             voting.getVotingMaps()[voting.getPlayerVotes().get(player.getName())].removeVote();
-                            voting.getPlayerVotes().remove(player.getName());
+                            voting.getPlayerVotes().clear();
                             voting.initVotingInventory();
                         }
 
                             plugin.getRoleManager().calculateRoles(plugin.getGamePlayer().size());
 
-                            ArrayList<String> seekerPlayers = plugin.getRoleManager().getSeekerPlayers();
+                            ArrayList<Player> seekerPlayers = plugin.getRoleManager().getSeekerPlayers();
                             for(Player current : plugin.getGamePlayer()) {
                                 Role playerRole = plugin.getRoleManager().getPlayerRole(current);
                                 current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
-                                current.sendMessage(Main.PREFIX + "§7Deine Rolle ist: §l" + playerRole.getChatColor() + playerRole.getName());
+                                current.sendMessage(Main.PREFIX + "§7Deine Rolle ist: §l" + playerRole.getName());
                                 current.sendMessage("§7----------§c§k524ghr4uth5h6u7hg43h5jgh§7----------");
-                                current.setDisplayName(playerRole.getChatColor() + current.getName());
 
                                 if (playerRole == Role.Seeker) {
-                                    current.sendMessage(Main.PREFIX + "§7Die Seeker sind: §c§l" + String.join(",", seekerPlayers));
+                                    current.sendMessage(Main.PREFIX + "§7Die Seeker sind: §c§l" + String.join(",", seekerPlayers.toString()));
                                     ItemStack sword = new ItemStack(Material.IRON_SWORD);
                                     ItemMeta swordMeta = sword.getItemMeta();
                                     swordMeta.setUnbreakable(true);

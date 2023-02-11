@@ -2,8 +2,10 @@ package de.theredend2000.hideandseek.gamestates;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.countdowns.HiderRunningCountdown;
+import de.theredend2000.hideandseek.role.RoleManager;
 import de.theredend2000.hideandseek.util.ConfigLocationUtil;
 import de.theredend2000.hideandseek.voting.Map;
+import de.theredend2000.hideandseek.voting.Voting;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -33,14 +35,17 @@ public class IngameState extends GameState{
     @Override
     public void start() {
         grace = true;
-        Collections.shuffle(plugin.getGamePlayer());
         players = plugin.getGamePlayer();
+        Collections.shuffle(players);
+        RoleManager roleManager = plugin.getRoleManager();
 
         map = plugin.getVoting().getWinnerMap();
         map.load();
-        for(int i = 0; i < players.size(); i++)
-            players.get(i).teleport(map.getSpawnLocations()[i]);
-
+        for(int i = 0; i < plugin.getRoleManager().getHiderPlayers().size(); i++) {
+            for(Player player : plugin.getRoleManager().getHiderPlayers()) {
+                player.teleport(map.getSpawnLocations()[i]);
+            }
+        }
         for(Player current : players) {
             current.setGameMode(GameMode.SURVIVAL);
             current.setHealth(20);
