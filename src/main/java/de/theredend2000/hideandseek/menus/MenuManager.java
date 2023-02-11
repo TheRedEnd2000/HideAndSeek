@@ -93,7 +93,7 @@ public class MenuManager {
         int[] ender2 = new int[]{14,15,16,32,33,34};
         for(int i = 0; i < redglass.length; i++){Seeker.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
         for(int i = 0; i < orange.length; i++){Seeker.setItem(orange[i], new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        for(int i = 0; i < ender.length; i++){Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+i+1).build());}
+        for(int i = 1; i < ender.length; i++) {Seeker.setItem(ender[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§4Seeker§e: "+i).build());}
         for(int i = 0; i < ender2.length; i++){Seeker.setItem(ender2[i], new ItemBuilder(Material.ENDER_EYE).setDisplayname("§c").build());}
         Seeker.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§f").setLore("§3Click to go Back to the Settings Menu").setLocalizedName("settings.playersettings.Seeker.comperator").build());
         Seeker.setItem(2,new ItemBuilder(Material.PLAYER_HEAD).setDisplayname("§9MaxSeekerCountBeginn").setLore("§7Maximum Player Count at the beginning of an game").setLocalizedName("settings.playersettings.Seeker.Head").build());
