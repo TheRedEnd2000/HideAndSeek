@@ -1,6 +1,7 @@
 package de.theredend2000.hideandseek.gamestates;
 
 import de.theredend2000.hideandseek.Main;
+import de.theredend2000.hideandseek.countdowns.GameTimeCountdown;
 import de.theredend2000.hideandseek.countdowns.HiderRunningCountdown;
 import de.theredend2000.hideandseek.role.Role;
 import de.theredend2000.hideandseek.role.RoleManager;
@@ -26,6 +27,7 @@ public class IngameState extends GameState{
     private Main plugin;
     private GameStateManager gameStateManager;
     private HiderRunningCountdown hiderRunningCountdown;
+    private GameTimeCountdown gameTimeCountdown;
     private Map map;
     private ArrayList<Player> players, spectators;
     private boolean grace;
@@ -35,6 +37,7 @@ public class IngameState extends GameState{
         spectators = new ArrayList<>();
         this.gameStateManager = gameStateManager;
         hiderRunningCountdown = new HiderRunningCountdown(plugin);
+        gameTimeCountdown = new GameTimeCountdown(plugin);
     }
 
     @Override
@@ -60,6 +63,7 @@ public class IngameState extends GameState{
             current.getInventory().clear();
         }
         hiderRunningCountdown.start();
+        gameTimeCountdown.start();
 
         plugin.getRoleManager().calculateRoles();
 
@@ -68,19 +72,12 @@ public class IngameState extends GameState{
             Role playerRole = plugin.getRoleManager().getPlayerRole(current);
             if(playerRole == Role.Seeker) {
                 current.sendTitle("" + playerRole.getName(), "§7Find and kill the hider.");
+                current.sendMessage(Main.PREFIX + "§7Die Seeker sind: §c§l" + String.join(",", seekerPlayers.toString()));
+                current.teleport(map.getSeekerWaitLocation());
             }else if(playerRole == Role.Hider){
                 current.sendTitle("" + playerRole.getName(), "§7Stay hidden as long as possible.");
-            }
-
-            if (playerRole == Role.Seeker) {
-                current.sendMessage(Main.PREFIX + "§7Die Seeker sind: §c§l" + String.join(",", seekerPlayers.toString()));
-                ItemStack sword = new ItemStack(Material.IRON_SWORD);
-                ItemMeta swordMeta = sword.getItemMeta();
-                swordMeta.setUnbreakable(true);
-                swordMeta.setDisplayName("§cMurder Sword");
-                swordMeta.addEnchant(Enchantment.DAMAGE_ALL, 1000, true);
-                sword.setItemMeta(swordMeta);
-                current.getInventory().setItem(1, sword);
+                for(int i = 0; i < plugin.getRoleManager().hider; i++)
+                    current.teleport(map.getSpawnLocations()[i]);
             }
         }
     }
@@ -88,7 +85,13 @@ public class IngameState extends GameState{
 
 
     public void checkGameEnding() {
-
+        RoleManager roleManager = plugin.getRoleManager();
+        if(roleManager.getHiderPlayers().size() == 0 || gameTimeCountdown.getSeconds() == 0){
+            plugin.getGameStateManager().setGameStates(GameState.ENDING_STATE);
+            for(Player player : plugin.getGamePlayer()){
+                player.sendMessage("§6");
+            }
+        }
     }
 
     public void addSpectator(Player player) {
@@ -101,19 +104,10 @@ public class IngameState extends GameState{
             player.teleport(locationUtil.loadLocation());
             player.teleport(map.getSpectatorLocation());
         }
-        return;
     }
 
     @Override
     public void stop() {
-        for(Player current : plugin.getGamePlayer()) {
-            current.sendMessage("");
-            current.sendMessage(Main.PREFIX + "§6Das Spiel ist vorbei! §7Die Gewinner sind: §6§l");
-            current.sendMessage(Main.PREFIX+"§7Spielzeit: §6");
-            current.sendMessage("");
-            current.getInventory().clear();
-            current.sendTitle("§6Spiel vorbei!", "§7Winner: ");
-        }
 
     }
 

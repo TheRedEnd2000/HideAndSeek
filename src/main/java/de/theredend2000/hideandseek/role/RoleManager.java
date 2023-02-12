@@ -16,14 +16,16 @@ public class RoleManager {
     private HashMap<String, Role> playerRoles;
     private ArrayList<Player> players;
     private ArrayList<String> seekerPlayers;
+    private ArrayList<String> hiderPlayers;
 
-    private int seeker, hider;
+    public int seeker, hider;
 
     public RoleManager(Main plugin) {
         this.plugin = plugin;
         playerRoles = new HashMap<>();
         players = plugin.getGamePlayer();
         seekerPlayers = new ArrayList<>();
+        hiderPlayers = new ArrayList<>();
     }
 
     public void calculateRoles() {
@@ -42,8 +44,10 @@ public class RoleManager {
         }
         counter += seeker;
 
-        for(int i = counter; i < hider + counter; i++)
+        for(int i = counter; i < hider + counter; i++) {
             playerRoles.put(players.get(i).getName(), Role.Hider);
+            hiderPlayers.add(players.get(i).getName());
+        }
     }
 
     public Role getPlayerRole(Player player) {
@@ -54,4 +58,7 @@ public class RoleManager {
         return seekerPlayers;
     }
 
+    public ArrayList<String> getHiderPlayers() {
+        return hiderPlayers;
+    }
 }

@@ -14,6 +14,7 @@ public class Map {
     private String players;
     private Location[] spawnLocations = new Location[LobbyState.MAX_PLAYER];
     private Location spectatorLocation;
+    private Location seekerStartLocation, seekerWaitLocation;
 
     private int votes;
 
@@ -35,6 +36,8 @@ public class Map {
         for(int i = 0; i < spawnLocations.length; i++)
             spawnLocations[i] = new ConfigLocationUtil(plugin, "Arenas."+name+"."+ (i + 1)).loadLocation();
         spectatorLocation = new ConfigLocationUtil(plugin, "Arenas."+name+".Spectator").loadLocation();
+        seekerWaitLocation = new ConfigLocationUtil(plugin, "Arenas."+name+".SeekerWait").loadLocation();
+        seekerStartLocation = new ConfigLocationUtil(plugin, "Arenas."+name+".SeekerStart").loadLocation();
     }
 
     public boolean exists() {
@@ -43,23 +46,14 @@ public class Map {
 
     public boolean playable() {
         if(!plugin.yaml.contains("Arenas." + name + ".Builder")) return false;
-        if(!plugin.yaml.contains("Arenas."+name+".Seeker")) return false;
+        if(!plugin.yaml.contains("Arenas."+name+".SeekerStart")) return false;
+        if(!plugin.yaml.contains("Arenas."+name+".SeekerWait")) return false;
         if(!plugin.yaml.contains("Arenas."+name+".Spectator")) return false;
         for(int i = 1; i < LobbyState.MAX_PLAYER+ 1; i++) {
             if(!plugin.yaml.contains("Arenas." + name + "."+i)) return false;
         }
         if(!plugin.yaml.getBoolean("Arenas."+name+".isFinished")) return false;
         return true;
-    }
-
-    public void setSpawnLocation(int spawnNumber, Location location) {
-        spawnLocations[spawnNumber - 1] = location;
-        new ConfigLocationUtil(plugin,location, "Arenas."+name+"."+spawnNumber).saveLocation();
-    }
-
-    public void setSpectatorLocation(Location location) {
-        spectatorLocation = location;
-        new ConfigLocationUtil(plugin,location,"Arenas."+name+".Spectator").saveLocation();
     }
 
     public void addVote() {
@@ -84,6 +78,14 @@ public class Map {
 
     public Location getSpectatorLocation() {
         return spectatorLocation;
+    }
+
+    public Location getSeekerWaitLocation() {
+        return seekerWaitLocation;
+    }
+
+    public Location getSeekerStartLocation() {
+        return seekerStartLocation;
     }
 
     public int getVotes() {

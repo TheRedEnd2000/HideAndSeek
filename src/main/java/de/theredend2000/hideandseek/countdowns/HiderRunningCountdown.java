@@ -2,6 +2,8 @@ package de.theredend2000.hideandseek.countdowns;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.gamestates.IngameState;
+import de.theredend2000.hideandseek.role.Role;
+import de.theredend2000.hideandseek.voting.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -26,7 +28,7 @@ public class HiderRunningCountdown extends Countdown {
             @Override
             public void run() {
                 switch (seconds) {
-                    case 10: case 5: case 4: case 3: case 2:
+                    case 60: case 30: case 15: case 10: case 5: case 4: case 3: case 2:
                         for(Player player : plugin.getGamePlayer()){
                             player.sendMessage(Main.PREFIX+"§aDie Seeker werden in "+seconds+"§a Sekunden freigelassen");
                         }
@@ -42,7 +44,13 @@ public class HiderRunningCountdown extends Countdown {
                         ingameState.setGrace(false);
                         stop();
                         for(Player player : plugin.getGamePlayer()){
-                            player.sendMessage(Main.PREFIX+"§aDie Seeker wurden freigelassen.");
+                            if(plugin.getRoleManager().getPlayerRole(player) == Role.Hider) {
+                                player.sendMessage(Main.PREFIX + "§aThe Seekers are now free.");
+                            }else if(plugin.getRoleManager().getPlayerRole(player) == Role.Seeker){
+                                Map map = plugin.getVoting().getWinnerMap();
+                                player.teleport(map.getSeekerStartLocation());
+                                player.sendMessage(Main.PREFIX + "§aFind and kill the hiders.");
+                            }
                         }
                         break;
 

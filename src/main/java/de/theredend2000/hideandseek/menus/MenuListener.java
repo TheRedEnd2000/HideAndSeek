@@ -452,10 +452,15 @@ public class MenuListener implements Listener {
                 }
                 if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
-                        case "map.seeker":
-                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Seeker").saveLocation();
+                        case "map.seeker2":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".SeekerStart").saveLocation();
                             player.closeInventory();
-                            player.sendMessage("§7The §6Seeker Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            player.sendMessage("§7The §6Seeker Starting Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
+                            break;
+                        case "map.seeker1":
+                            new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".SeekerWait").saveLocation();
+                            player.closeInventory();
+                            player.sendMessage("§7The §6Seeker Waiting Spawn §7for the Map §6" + mapName + "§7 was set§2 successfully§7.");
                             break;
                         case "map.spec":
                             new ConfigLocationUtil(plugin, location, "Arenas." + mapName + ".Spectator").saveLocation();
@@ -491,7 +496,8 @@ public class MenuListener implements Listener {
     private boolean isFinished(String mapname){
         for(int i = 1; i < 11; i++)
             if(!plugin.yaml.contains("Arenas."+mapname+"."+i)) return false;
-        if(!plugin.yaml.contains("Arenas."+mapname+".Seeker")) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".SeekerStart")) return false;
+        if(!plugin.yaml.contains("Arenas."+mapname+".SeekerWait")) return false;
         if(!plugin.yaml.contains("Arenas."+mapname+".Spectator")) return false;
 
         return true;

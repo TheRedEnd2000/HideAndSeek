@@ -1,6 +1,7 @@
 package de.theredend2000.hideandseek;
 
 import de.theredend2000.hideandseek.gamejoin.JoinGameEvent;
+import de.theredend2000.hideandseek.gamestates.GameProtectionListener;
 import de.theredend2000.hideandseek.gamestates.GameStateManager;
 import de.theredend2000.hideandseek.gamejoin.JoinGameManager;
 import de.theredend2000.hideandseek.menus.*;
@@ -100,6 +101,7 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new JoinGameEvent(this),this);
         pluginManager.registerEvents(new VotingListener(this),this);
         pluginManager.registerEvents(new MenuListener(this),this);
+        pluginManager.registerEvents(new GameProtectionListener(this),this);
     }
 
     private void initCommands(){

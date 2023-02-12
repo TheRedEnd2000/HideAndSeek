@@ -77,7 +77,6 @@ public class LobbyCountdown extends Countdown{
                             voting.initVotingInventory();
                         }
                     }
-
                         break;
 
                     default:

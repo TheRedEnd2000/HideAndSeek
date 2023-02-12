@@ -159,7 +159,6 @@ public class MenuManager {
             case 60:
                 Seeker.setItem(43,new ItemBuilder(Material.LIME_DYE).setDisplayname("§aSelected").build());
                 break;
-
         }
         player.openInventory(Seeker);
     }
@@ -190,20 +189,17 @@ public class MenuManager {
         Ability.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.back").build());
         int[] DisEnabled = new int[]{38,39,40,41,42};
         for (int i = 0; i < DisEnabled.length; i++){Ability.setItem(DisEnabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disable").setLore("§3Click to Enable").build());}
-        if (plugin.getConfig().getBoolean("Ability.Invincible") == true){Ability.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
-        if (plugin.getConfig().getBoolean("Ability.Blindness") == true){Ability.setItem(39, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye2").build());}
-        if (plugin.getConfig().getBoolean("Ability.Slowness") == true){Ability.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
-        if (plugin.getConfig().getBoolean("Ability.Glowing") == true){Ability.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
-        if (plugin.getConfig().getBoolean("Ability.Freeze") == true){Ability.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
+        if (plugin.getConfig().getBoolean("Ability.Invincible")){Ability.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
+        if (plugin.getConfig().getBoolean("Ability.Blindness")){Ability.setItem(39, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye2").build());}
+        if (plugin.getConfig().getBoolean("Ability.Slowness")){Ability.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
+        if (plugin.getConfig().getBoolean("Ability.Glowing")){Ability.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
+        if (plugin.getConfig().getBoolean("Ability.Freeze")){Ability.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
         player.openInventory(Ability);
-
-
-
     }
     public void createsettingsAbilitiesInvincebleInventory(Player player){
         Inventory Invincible = Bukkit.createInventory(player,27,"Invincible");
         int[] redglass = new int[]{0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25,26};
-        for(int i = 0; i <)
+        //for(int i = 0; i <)
     }
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Edit Map");
@@ -216,15 +212,20 @@ public class MenuManager {
             mapInventory.setItem(whiteglass[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
         }
         mapInventory.setItem(4, new ItemBuilder(Material.PAPER).setDisplayname("§6"+mapname).setLore("§7You currently editing this map.").build());
-        if(plugin.yaml.contains("Arenas."+mapname+".Seeker")){
-            mapInventory.setItem(30, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Spawn").setLore("§7Click to set the Seeker Spawn.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.seeker").build());
+        if(plugin.yaml.contains("Arenas."+mapname+".SeekerWait")){
+            mapInventory.setItem(30, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Waiting Spawn").setLore("§7Teleports the seeker to this location while the hiders are hiding.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.seeker1").build());
         }else{
-            mapInventory.setItem(30, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Spawn").setLore("§7Click to set the Seeker Spawn.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.seeker").build());
+            mapInventory.setItem(30, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Waiting Spawn").setLore("§7Teleports the seeker to this location while the hiders are hiding.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.seeker1").build());
         }
         if(plugin.yaml.contains("Arenas."+mapname+".Spectator")){
             mapInventory.setItem(32, new ItemBuilder(Material.WHITE_BED).setDisplayname("§2§lSpectator Spawn").setLore("§7Click to set the Spectator Spawn.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.spec").build());
         }else{
             mapInventory.setItem(32, new ItemBuilder(Material.WHITE_BED).setDisplayname("§2§lSpectator Spawn").setLore("§7Click to set the Spectator Spawn.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.spec").build());
+        }
+        if(plugin.yaml.contains("Arenas."+mapname+".SeekerStart")){
+            mapInventory.setItem(31, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Starting Spawn").setLore("§7Teleports the seeker after the hiding time to this location.","§cIt will use your coordinates and facing.","","§a✔ COMPLETE").setLocalizedName("map.seeker2").build());
+        }else{
+            mapInventory.setItem(31, new ItemBuilder(Material.RED_BED).setDisplayname("§c§lSeeker Starting Spawn").setLore("§7Teleports the seeker after the hiding time to this location.","§cIt will use your coordinates and facing.","","§4✘ INCOMPLETE").setLocalizedName("map.seeker2").build());
         }
         mapInventory.setItem(37, new ItemBuilder(Material.COMPARATOR).setDisplayname("§4Settings").setLore("§7Open the Settings to configurate more.","§cIt will use your coordinates and facing.").setLocalizedName("map.settings").build());
         mapInventory.setItem(43, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayname("§a§lFINISH").setLore("§7Finish the setup.","§cYou must have everything completed.","§4If it is not finished, you can't play on the map.").setLocalizedName("map.finish").build());
