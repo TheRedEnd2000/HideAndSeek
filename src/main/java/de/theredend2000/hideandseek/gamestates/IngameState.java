@@ -86,7 +86,7 @@ public class IngameState extends GameState{
                 sendHiderBar(current);
                 for(int i = 0; i < plugin.getRoleManager().hider; i++) {
                     current.teleport(map.getSpawnLocations()[i]);
-                    Bukkit.getConsoleSender().sendMessage("Teleported: "+current.getName());
+                    Bukkit.getConsoleSender().sendMessage("Teleported: "+current.getName()+" to "+map.getSpawnLocations()[i]);
                 }
             }
         }
