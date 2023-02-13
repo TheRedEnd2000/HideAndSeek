@@ -3,6 +3,7 @@ package de.theredend2000.hideandseek.countdowns;
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.gamestates.GameState;
 import de.theredend2000.hideandseek.gamestates.GameStateManager;
+import de.theredend2000.hideandseek.gamestates.IngameState;
 import de.theredend2000.hideandseek.gamestates.LobbyState;
 import de.theredend2000.hideandseek.role.Role;
 import de.theredend2000.hideandseek.voting.Map;
@@ -83,6 +84,10 @@ public class LobbyCountdown extends Countdown{
                         break;
                 }
                 seconds --;
+                if(plugin.getGameStateManager().getCurrentGameState() instanceof LobbyState) {
+                    LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
+                    lobbyState.updateScoreboard();
+                }
             }
         },0,20);
     }

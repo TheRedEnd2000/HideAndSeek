@@ -28,6 +28,10 @@ public class JoinGameManager {
             player.sendMessage(Main.PREFIX+"§cThere are no maps to play on!");
             return;
         }
+        if (plugin.getGamePlayer().contains(player)) {
+            player.sendMessage(Main.PREFIX + "§cYou already joined the game!");
+            return;
+        }
             if (plugin.getGameStateManager().getCurrentGameState() instanceof IngameState || plugin.getGameStateManager().getCurrentGameState() instanceof EndingState) {
 
                 //ADD PLAYER TO SPECTATOR
@@ -39,16 +43,14 @@ public class JoinGameManager {
                 player.sendMessage(Main.PREFIX + "§cThe Game is already full!");
                 return;
             }
-            if (plugin.getGamePlayer().contains(player)) {
-                player.sendMessage(Main.PREFIX + "§cYou already joined the game!");
-                return;
-            }
             plugin.getGamePlayer().add(player);
             for (Player current : plugin.getGamePlayer()) {
                 current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7joined the round. §b[§2" +
                         plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
             }
             plugin.getGameStateManager().setGameStates(GameState.LOBBY_STATE);
+        LobbyState ls = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
+        ls.updateScoreboard();
             player.getInventory().clear();
             player.setGameMode(GameMode.SURVIVAL);
             player.setHealthScale(20);
@@ -62,8 +64,7 @@ public class JoinGameManager {
             ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "lobby");
             if (locationUtil.loadLocation() != null) {
                 player.teleport(locationUtil.loadLocation());
-            } else
-                Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie Lobby-Location wurde noch nicht gesetzt!");
+            }
 
             LobbyState lobbyState = (LobbyState) plugin.getGameStateManager().getCurrentGameState();
             LobbyCountdown countdown = lobbyState.getLobbyCountdown();
@@ -81,6 +82,7 @@ public class JoinGameManager {
             LobbyCountdown countdown = lobbyState.getLobbyCountdown();
             if (plugin.getGamePlayer().contains(player)) {
                 plugin.getGamePlayer().remove(player);
+                player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
                 for (Player current : plugin.getGamePlayer()) {
                     current.sendMessage(Main.PREFIX + "§a" + player.getDisplayName() + " §7left the round. §b[§2" +
                             plugin.getGamePlayer().size() + "§b/§2" + LobbyState.MAX_PLAYER + "§b]");
@@ -99,8 +101,7 @@ public class JoinGameManager {
                 ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "end");
                 if (locationUtil.loadLocation() != null) {
                     player.teleport(locationUtil.loadLocation());
-                } else
-                    Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "§cDie End-Location wurde noch nicht gesetzt!");
+                }
 
                 if (plugin.getGamePlayer().size() < plugin.getConfig().getInt("Settings.MinPlayerCount")) {
                     if (countdown.isRunning()) {

@@ -63,6 +63,9 @@ public class Map {
     public void removeVote() {
         votes--;
     }
+    public void clearVotes(){
+        votes = 0;
+    }
 
     public String getName() {
         return name;

@@ -23,7 +23,7 @@ public class HiderRunningCountdown extends Countdown {
 
     @Override
     public void start() {
-        seconds = plugin.getConfig().getInt("Settings.HidingTime");
+        seconds = plugin.getConfig().getInt("Settings.TimeToHide");
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -65,5 +65,9 @@ public class HiderRunningCountdown extends Countdown {
     @Override
     public void stop() {
         Bukkit.getScheduler().cancelTask(taskID);
+    }
+
+    public int getSeconds() {
+        return seconds;
     }
 }

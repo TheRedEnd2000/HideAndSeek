@@ -32,7 +32,7 @@ public class RoleManager {
         //Delete
         int playersize = players.size();
 
-        seeker = (int) Math.round(Math.log(playersize)* 2);
+        seeker = (int) Math.round(Math.log(playersize)* 1.2);
         hider = playersize - seeker;
 
         Collections.shuffle(plugin.getGamePlayer());
@@ -52,6 +52,10 @@ public class RoleManager {
 
     public Role getPlayerRole(Player player) {
         return playerRoles.get(player.getName());
+    }
+
+    public HashMap<String, Role> getPlayerRoles() {
+        return playerRoles;
     }
 
     public ArrayList<String> getSeekerPlayers() {

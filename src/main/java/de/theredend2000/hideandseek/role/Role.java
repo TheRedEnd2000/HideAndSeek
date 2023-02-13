@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 public enum Role{
 
     Hider("§2Hider"),
+    Spectator("§3Spectator"),
     Seeker("§4Seeker");
 
 

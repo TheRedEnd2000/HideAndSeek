@@ -25,6 +25,10 @@ public class GameTimeCountdown extends Countdown{
                 @Override
                 public void run() {
                     for(Player player : plugin.getGamePlayer()){
+                        if(seconds == 0){
+                            cancel();
+                            return;
+                        }
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MenuManager.shortInteger(seconds)));
                     }
                 }
@@ -35,7 +39,7 @@ public class GameTimeCountdown extends Countdown{
     @Override
     public void start() {
         seconds = plugin.getConfig().getInt("Settings.TimeToPlay");
-        run();
+        //run();
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -63,6 +67,14 @@ public class GameTimeCountdown extends Countdown{
                         break;
                 }
                 seconds--;
+                if(!(plugin.getGameStateManager().getCurrentGameState() instanceof IngameState)){
+                    stop();
+                    return;
+                }
+                IngameState ingameState = (IngameState) plugin.getGameStateManager().getCurrentGameState();
+                for(Player player : plugin.getGamePlayer()) {
+                    ingameState.ingameScoreboard(player);
+                }
             }
         },0,20);
     }
