@@ -190,6 +190,11 @@ public class MenuListener implements Listener {
                 event.getPlayer().sendMessage(Main.PREFIX+"§cTask canceled.");
                 return;
             }
+            if(event.getMessage().contains(".")){
+                plugin.getMenuManager().createNewMapInventory(event.getPlayer());
+                event.getPlayer().sendMessage(Main.PREFIX+"§cThe map name can't contains §6'.'§c!");
+                return;
+            }
             plugin.yaml.set("CreateMaps."+event.getPlayer().getName()+".Name", event.getMessage());
             plugin.saveData();
             plugin.getMenuManager().createNewMapInventory(event.getPlayer());
