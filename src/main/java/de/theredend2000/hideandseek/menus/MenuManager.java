@@ -5,6 +5,7 @@ import de.theredend2000.hideandseek.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -172,34 +173,238 @@ public class MenuManager {
         Hider.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.playersettings.Hider.comperator").build());
         player.openInventory(Hider);
     }
-    public void createSettingsAbillitysInventory(Player player)
-    {Inventory Ability = Bukkit.createInventory(player, 54, "Ability");
-        int[] redglass = new int[]{0,1,3,5,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,52,53};
-        int[] white = new int[]{10,11,12,14,15,16,19,20,21,22,23,24,25,28,24,37,43};
-        for (int i = 0; i < redglass.length; i++){Ability.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        for (int i = 0; i < white.length; i++){Ability.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
-        Ability.setItem(4 , new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§3Abilities").build());
-        Ability.setItem(13, new ItemBuilder(Material.LIME_CONCRETE).setDisplayname("§aAbilities Enabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_concrete").build());
-        Ability.setItem(29, new ItemBuilder(Material.SHIELD).setDisplayname("Invincible").setLocalizedName("settings.Abilities.Invincible").build());
-        Ability.setItem(30, new ItemBuilder(Material.BOW).setDisplayname("Blindness").setLocalizedName("settings.Abilities.Blindness").build());
-        Ability.setItem(31, new ItemBuilder(Material.TRIDENT).setDisplayname("Slowness").setLocalizedName("settings.Abilities.Slowness").build());
-        Ability.setItem(32, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("Glowing").setLocalizedName("settings.Abilities.Glowing").build());
-        Ability.setItem(29, new ItemBuilder(Material.BLUE_ICE).setDisplayname("Freeze").setLocalizedName("settings.Abilities.Freeze").build());
-        Ability.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.Abilities.back").build());
-        Ability.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.back").build());
+    public void createSettingsAbillitysSeekerInventory(Player player)
+    {Inventory Abilitys = Bukkit.createInventory(player, 54, "Abilities Seeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,51,52,53};
+        int[] white = new int[]{10,11,12,14,15,16,19,20,21,22,23,24,25,28,24,34,37,43};
+        for (int i = 0; i < redglass.length; i++){Abilitys.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        for (int i = 0; i < white.length; i++){Abilitys.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Abilitys.setItem(4 , new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§3Abilities").build());
+        Abilitys.setItem(13, new ItemBuilder(Material.LIME_CONCRETE).setDisplayname("§aAbilities Enabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_concrete").build());
+        Abilitys.setItem(29, new ItemBuilder(Material.SHIELD).setDisplayname("Invincible").setLocalizedName("settings.Abilities.Invincible").build());
+        Abilitys.setItem(30, new ItemBuilder(Material.BOW).setDisplayname("Blindness").setLocalizedName("settings.Abilities.Blindness").build());
+        Abilitys.setItem(31, new ItemBuilder(Material.TRIDENT).setDisplayname("Slowness").setLocalizedName("settings.Abilities.Slowness").build());
+        Abilitys.setItem(32, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("Glowing").setLocalizedName("settings.Abilities.Glowing").build());
+        Abilitys.setItem(33, new ItemBuilder(Material.BLUE_ICE).setDisplayname("Freeze").setLocalizedName("settings.Abilities.Freeze").build());
+        Abilitys.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.Abilities.back").build());
+        Abilitys.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Settings.back").build());
+
+
         int[] DisEnabled = new int[]{38,39,40,41,42};
-        for (int i = 0; i < DisEnabled.length; i++){Ability.setItem(DisEnabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disable").setLore("§3Click to Enable").build());}
-        if (plugin.getConfig().getBoolean("Ability.Invincible")){Ability.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
-        if (plugin.getConfig().getBoolean("Ability.Blindness")){Ability.setItem(39, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye2").build());}
-        if (plugin.getConfig().getBoolean("Ability.Slowness")){Ability.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
-        if (plugin.getConfig().getBoolean("Ability.Glowing")){Ability.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
-        if (plugin.getConfig().getBoolean("Ability.Freeze")){Ability.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
-        player.openInventory(Ability);
+        for (int i = 0; i < DisEnabled.length; i++){Abilitys.setItem(DisEnabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disable").setLore("§3Click to Enable").build());}
+        if (plugin.getConfig().getBoolean("Ability.Invincible")){Abilitys.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
+        if (plugin.getConfig().getBoolean("Ability.Blindness")){Abilitys.setItem(39, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye2").build());}
+        if (plugin.getConfig().getBoolean("Ability.Slowness")){Abilitys.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
+        if (plugin.getConfig().getBoolean("Ability.Glowing")){Abilitys.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
+        if (plugin.getConfig().getBoolean("Ability.Freeze")){Abilitys.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
+        player.openInventory(Abilitys);
     }
-    public void createsettingsAbilitiesInvincebleInventory(Player player){
-        Inventory Invincible = Bukkit.createInventory(player,27,"Invincible");
-        int[] redglass = new int[]{0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25,26};
-        //for(int i = 0; i <)
+
+    public void createSettingsAbillitysHiderInventory(Player player){
+        Inventory Abilitys = Bukkit.createInventory(player, 54, "Abilities Hider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,18,26,27,13,22,31,40,35,36,44,45,46,47,48,50,51,52,53};
+        int[] white = new int[]{10,11,12,14,15,16,19,20,21,22,23,24,25,28,24,34,37,43};
+        for (int i = 0; i < redglass.length; i++){Abilitys.setItem(redglass[i], new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        for (int i = 0; i < white.length; i++){Abilitys.setItem(white[i], new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Abilitys.setItem(4 , new ItemBuilder(Material.NETHERITE_AXE).setDisplayname("§3Abilities").build());
+        Abilitys.setItem(13, new ItemBuilder(Material.LIME_CONCRETE).setDisplayname("§aAbilities Enabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_concrete").build());
+        Abilitys.setItem(29, new ItemBuilder(Material.SHIELD).setDisplayname("Invincible").setLocalizedName("settings.Abilities.Invincible").build());
+        Abilitys.setItem(30, new ItemBuilder(Material.BOW).setDisplayname("Blindness").setLocalizedName("settings.Abilities.Blindness").build());
+        Abilitys.setItem(31, new ItemBuilder(Material.TRIDENT).setDisplayname("Slowness").setLocalizedName("settings.Abilities.Slowness").build());
+        Abilitys.setItem(32, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("Glowing").setLocalizedName("settings.Abilities.Glowing").build());
+        Abilitys.setItem(33, new ItemBuilder(Material.BLUE_ICE).setDisplayname("Freeze").setLocalizedName("settings.Abilities.Freeze").build());
+        Abilitys.setItem(45,new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§c").setLocalizedName("settings.Abilities.back").build());
+        Abilitys.setItem(49,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Settings.back").build());
+
+
+        int[] DisEnabled = new int[]{38,39,40,41,42};
+        for (int i = 0; i < DisEnabled.length; i++){Abilitys.setItem(DisEnabled[i], new ItemBuilder(Material.RED_DYE).setDisplayname("§4Disable").setLore("§3Click to Enable").build());}
+        if (plugin.getConfig().getBoolean("Ability.Invincible")){Abilitys.setItem(38, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye1").build());}
+        if (plugin.getConfig().getBoolean("Ability.Blindness")){Abilitys.setItem(39, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye2").build());}
+        if (plugin.getConfig().getBoolean("Ability.Slowness")){Abilitys.setItem(40, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye3").build());}
+        if (plugin.getConfig().getBoolean("Ability.Glowing")){Abilitys.setItem(41, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye4").build());}
+        if (plugin.getConfig().getBoolean("Ability.Freeze")){Abilitys.setItem(42, new ItemBuilder(Material.LIME_DYE).setDisplayname("§aEnabled").setLore("§3Click to Disable").setLocalizedName("settings.Abilities.Lime_Dye5").build());}
+        player.openInventory(Abilitys);
+    }
+    public void createsettingsAbilitiesInvincebleSeekerInventory(Player player){
+        Inventory Invincible = Bukkit.createInventory(player,27,"InvincibleItemSettingsSeeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Invincible.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Invincible.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Invincible.Clock").build());
+        Invincible.setItem(4,new ItemBuilder(Material.SHIELD).setDisplayname("§7Invincible").setLocalizedName("settings.Abilities.Invincible.Shield").build());
+        Invincible.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Invincible.repeater").build());
+        Invincible.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Invincible.Back").build());
+        Invincible.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Invincible.Back.s").build());
+        player.openInventory(Invincible);
+    }
+    public void createsettingsAbilitiesInvincebleHiderInventory(Player player){
+        Inventory Invincible = Bukkit.createInventory(player,27,"InvincibleItemSettingsHider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Invincible.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Invincible.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Invincible.Clock").build());
+        Invincible.setItem(4,new ItemBuilder(Material.SHIELD).setDisplayname("§7Invincible").setLocalizedName("settings.Abilities.Invincible.Shield").build());
+        Invincible.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Invincible.repeater").build());
+        Invincible.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Invincible.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Invincible.Back").build());
+        Invincible.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Invincible.Back.s").build());
+        player.openInventory(Invincible);
+    }
+    public void createsettingsAbilitiesBlindnessSeekerInventory(Player player){
+        Inventory Bli = Bukkit.createInventory(player,27,"BlindnessItemSettingsSeeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Bli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Bli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Bli.Clock").build());
+        Bli.setItem(4,new ItemBuilder(Material.BOW).setDisplayname("§7Blindness").setLocalizedName("settings.Abilities.Bli.Bow").build());
+        Bli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Bli.repeater").build());
+        Bli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Bli.Back").build());
+        Bli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Bli.Back.s").build());
+        player.openInventory(Bli);
+    }
+    public void createsettingsAbilitiesBlindnessHiderInventory(Player player){
+        Inventory Bli = Bukkit.createInventory(player,27,"BlindnessItemSettingsHider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Bli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Bli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Bli.Clock").build());
+        Bli.setItem(4,new ItemBuilder(Material.BOW).setDisplayname("§7Blindness").setLocalizedName("settings.Abilities.Bli.Bow").build());
+        Bli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Bli.repeater").build());
+        Bli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Bli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Bli.Back").build());
+        Bli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Bli.Back.s").build());
+        player.openInventory(Bli);
+    }
+    public void createsettingsAbilitiesSlownessSeekerInventory(Player player){
+        Inventory Sli = Bukkit.createInventory(player,27,"SlownessItemSettingsSeeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Sli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Sli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Sli.Clock").build());
+        Sli.setItem(4,new ItemBuilder(Material.TRIDENT).setDisplayname("§7Slowness").setLocalizedName("settings.Abilities.Sli.Trident").build());
+        Sli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Sli.repeater").build());
+        Sli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Sli.Back").build());
+        Sli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Sli.Back.s").build());
+        player.openInventory(Sli);
+    }
+    public void createsettingsAbilitiesSlownessHiderInventory(Player player){
+        Inventory Sli = Bukkit.createInventory(player,27,"SlownessItemSettingsHider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Sli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Sli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Sli.Clock").build());
+        Sli.setItem(4,new ItemBuilder(Material.TRIDENT).setDisplayname("§7Slowness").setLocalizedName("settings.Abilities.Sli.Trident").build());
+        Sli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Sli.repeater").build());
+        Sli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Sli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Sli.Back").build());
+        Sli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Sli.Back.s").build());
+        player.openInventory(Sli);
+
+    }
+    public void createsettingsAbilitiesGlowingSeekerInventory(Player player){
+        Inventory Gli = Bukkit.createInventory(player,27,"GlowingItemSettingsSeeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Gli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Gli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Gli.Clock").build());
+        Gli.setItem(4,new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§7Glowing").setLocalizedName("settings.Abilities.Gli.Glowstonedust").build());
+        Gli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Gli.repeater").build());
+        Gli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Gli.Back").build());
+        Gli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Gli.Back.s").build());
+        player.openInventory(Gli);
+    }
+    public void createsettingsAbilitiesGlowingHiderInventory(Player player){
+        Inventory Gli = Bukkit.createInventory(player,27,"GlowingItemSettingsHider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Gli.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Gli.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Gli.Clock").build());
+        Gli.setItem(4,new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayname("§7Glowing").setLocalizedName("settings.Abilities.Gli.Glowstonedust").build());
+        Gli.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Gli.repeater").build());
+        Gli.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Gli.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Gli.Back").build());
+        Gli.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Gli.Back.s").build());
+        player.openInventory(Gli);
+
+    }
+    public void createsettingsAbilitiesFreezeSeekerInventory(Player player){
+        Inventory Freeze = Bukkit.createInventory(player,27,"FreezeItemSettingsSeeker");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Freeze.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Freeze.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Freeze.Clock").build());
+        Freeze.setItem(4,new ItemBuilder(Material.BLUE_ICE).setDisplayname("§7Freeze").setLocalizedName("settings.Abilities.Freeze.Ice").build());
+        Freeze.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Freeze.repeater").build());
+        Freeze.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Freeze.Back").build());
+        Freeze.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Freeze.Back.s").build());
+        player.openInventory(Freeze);
+    }
+    public void createsettingsAbilitiesFreezeHiderInventory(Player player){
+        Inventory Freeze = Bukkit.createInventory(player,27,"FreezeItemSettingsHider");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for(int i = 0; i < redglass.length; i++) {Freeze.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        Freeze.setItem(10,new ItemBuilder(Material.CLOCK).setDisplayname("§3Time").setLore("§7Set the Duration of the Abilitie").setLocalizedName("settings.Abilities.Freeze.Clock").build());
+        Freeze.setItem(4,new ItemBuilder(Material.BLUE_ICE).setDisplayname("§7Freeze").setLocalizedName("settings.Abilities.Freeze.Ice").build());
+        Freeze.setItem(16,new ItemBuilder(Material.REPEATER).setDisplayname("§4Amount").setLore("§7Set the amount of uses before you cant use it anymore").setLocalizedName("settings.Abilities.Freeze.repeater").build());
+        Freeze.setItem(11,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(15,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(12,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(14,new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(13,new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        Freeze.setItem(18,new ItemBuilder(Material.ARROW).setDisplayname("§7").setLore("§3 Click to go Back to the Abilities Menu").setLocalizedName("settings.Abilities.Freeze.Back").build());
+        Freeze.setItem(22,new ItemBuilder(Material.COMPARATOR).setDisplayname("§eSettings").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Freeze.Back.s").build());
+        player.openInventory(Freeze);
+
+    }
+
+    public void createsettingsAbilitiesTeamChooseInventory(Player player){
+        Inventory ATCI = Bukkit.createInventory(player,27, "Choose Team");
+        int[] redglass = new int[]{0,1,2,3,5,6,7,8,9,17,19,20,21,22,23,24,25,26};
+        for ( int i = 0; i < redglass.length; i++) {ATCI.setItem(redglass[i],new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§c").build());}
+        ATCI.setItem(4, new ItemBuilder(Material.STRUCTURE_VOID).setDisplayname("§fChoose Team on which you wanna ably the Abilities").build());
+        ATCI.setItem(11, new ItemBuilder(Material.NETHERITE_SWORD).setDisplayname("§4Seeker").setLore("§7Click here to choose the Abilities for the Seeker Team").setLocalizedName("settings.Abilities.Playerchoose.Seeker").build());
+        ATCI.setItem(15, new ItemBuilder(Material.SHIELD).setDisplayname("§aHider").setLore("§7Click here to choose the Abilities for the Hider Team").setLocalizedName("settings.Abilities.Playerchoose.Hider").build());
+        ATCI.setItem(10, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        ATCI.setItem(13, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        ATCI.setItem(16, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        ATCI.setItem(12, new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        ATCI.setItem(14, new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setDisplayname("§c").build());
+        ATCI.setItem(18, new ItemBuilder(Material.ARROW).setDisplayname("§7Back").setLore("§3Click to go back to the Settings Menu").setLocalizedName("settings.Abilities.Playerchoose.Back").build());
+        ATCI.setItem(22, new ItemBuilder(Material.COMPARATOR).setDisplayname("§3Settings").setLore("§7").setLocalizedName("settings.Abilities.Playerchoose.Settings").build());
+        player.openInventory(ATCI);
     }
     public void createMapEditInventory(Player player, String mapname){
         Inventory mapInventory = Bukkit.createInventory(player, 54, "Edit Map");

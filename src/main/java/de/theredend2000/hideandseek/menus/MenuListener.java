@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -263,7 +264,32 @@ public class MenuListener implements Listener {
                             plugin.getMenuManager().createSettingsInventory(player);
                             break;
                         case "settings.Ability":
-                            plugin.getMenuManager().createSettingsAbillitysInventory(player);
+                            plugin.getMenuManager().createsettingsAbilitiesTeamChooseInventory(player);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onClicksettingsAbilitiesPlayerchooseInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Choose Team")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null){
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Playerchoose.Seeker":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Playerchoose.Hider":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Playerchoose.Back":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                        case "settings.Abilities.Playerchoose.Settings":
+                            plugin.getMenuManager().createSettingsInventory(player);
                             break;
                     }
                 }
@@ -397,19 +423,263 @@ public class MenuListener implements Listener {
         }
     }
     @EventHandler
-    public void onClickAbilitiesInventory(InventoryClickEvent event){
+    public void onClickAbilitiesSeekerInventory(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equals("Abilities")) {
+        if (event.getView().getTitle().equals("Abilities Seeker")) {
             event.setCancelled(true);
             if (event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getItemMeta().hasLocalizedName()){
                     switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
-                        case"blealal":
+                        case"settings.Abilities.Invincible":
+                            plugin.getMenuManager().createsettingsAbilitiesInvincebleSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Settings.back":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                        case "settings.Abilities.back":
+                            plugin.getMenuManager().createsettingsAbilitiesTeamChooseInventory(player);
+                            break;
+                        case "settings.Abilities.Blindness":
+                            plugin.getMenuManager().createsettingsAbilitiesBlindnessSeekerInventory(player);
+                            break;
+                        case"settings.Abilities.Slowness":
+                            plugin.getMenuManager().createsettingsAbilitiesSlownessSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Glowing":
+                            plugin.getMenuManager().createsettingsAbilitiesGlowingSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Freeze":
+                            plugin.getMenuManager().createsettingsAbilitiesFreezeSeekerInventory(player);
+
+
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onClickAbilitiesHiderInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("Abilities Hider")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case"settings.Abilities.Invincible":
+                            plugin.getMenuManager().createsettingsAbilitiesInvincebleHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Settings.back":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                        case "settings.Abilities.back":
+                            plugin.getMenuManager().createsettingsAbilitiesTeamChooseInventory(player);
+                            break;
+                        case "settings.Abilities.Blindness":
+                            plugin.getMenuManager().createsettingsAbilitiesBlindnessHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Slowness":
+                            plugin.getMenuManager().createsettingsAbilitiesSlownessHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Glowing":
+                            plugin.getMenuManager().createsettingsAbilitiesGlowingHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Freeze":
+                            plugin.getMenuManager().createsettingsAbilitiesFreezeHiderInventory(player);
+                    }
+                }
+            }
+        }
+    }
+    /*
+    @EventHandler
+    public void onclickInvincibleSeekerInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("InvincibleItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
+                        case "settings.Abilities.Invincible.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Invincible.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+
+                    }
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onclickInvincibleHiderInventory(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("InvincibleItemSettingsHider")) {
+            event.setCancelled(true);
+            if (event.getCurrentItem() != null) {
+                if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()) {
+                        case "settings.Abilities.Invincible.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Invincible.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+
+                    }
+                }
+            }
+        }
+    }
+    */
+    @EventHandler
+    public void onClickAbilitiesMenuAllTest(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if (event.getView().getTitle().equals("InvincibleItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Invincible.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Invincible.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
                             break;
                     }
                 }
             }
         }
+        else if (event.getView().getTitle().equals("InvincibleItemSettingsHider")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Invincible.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Invincible.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }
+        else if (event.getView().getTitle().equals("BlindnessItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Bli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Bli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }
+        else if (event.getView().getTitle().equals("BlindnessItemSettingsHider")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Bli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Bli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }
+        else if (event.getView().getTitle().equals("SlownessItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Sli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Sli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }else if (event.getView().getTitle().equals("SlownessItemSettingsHider")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Sli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Sli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }else if (event.getView().getTitle().equals("GlowingItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Gli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Gli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }else if (event.getView().getTitle().equals("GlowingItemSettingsHider")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Gli.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Gli.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }else if (event.getView().getTitle().equals("FreezeItemSettingsSeeker")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Freeze.Back":
+                            plugin.getMenuManager().createSettingsAbillitysSeekerInventory(player);
+                            break;
+                        case "settings.Abilities.Freeze.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }else if (event.getView().getTitle().equals("FreezeItemSettingsHider")) {
+            event.setCancelled(true);
+            if(event.getCurrentItem() !=null){
+                if(event.getCurrentItem().getItemMeta().hasLocalizedName()){
+                    switch (event.getCurrentItem().getItemMeta().getLocalizedName()){
+                        case "settings.Abilities.Freeze.Back":
+                            plugin.getMenuManager().createSettingsAbillitysHiderInventory(player);
+                            break;
+                        case "settings.Abilities.Freeze.Back.s":
+                            plugin.getMenuManager().createSettingsInventory(player);
+                            break;
+                    }
+                }
+            }
+        }
+
     }
     @EventHandler
     public void onClickHiderInventory(InventoryClickEvent event) {
