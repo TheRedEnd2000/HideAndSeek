@@ -16,21 +16,21 @@ Settings:
   SpectatorMode: true
   #Enable Ability´s
   Ability:
-    AbilitiesEnabled:
-      AbilitiySeekerEnabled:
-      AbilitiyHiderEnabled:
-      AbilitiySeeker:
-        Invincible:
-        Blindness:
-        Slowness:
-        Glowing:
-        Freeze:
-      AbilitiyHider:
-        Invincible:
-        Blindness:
-        Slowness:
-        Glowing:
-        Freeze:
+    AbilitiesEnabled: false
+    AbilitiySeekerEnabled: false
+    AbilitiyHiderEnabled: false
+    AbilitiySeeker:
+      Invincible: false
+      Blindness: false
+      Slowness: false
+      Glowing: false
+      Freeze: false
+    AbilitiyHider:
+      Invincible: false
+      Blindness: false
+      Slowness: false
+      Glowing: false
+      Freeze: false
 
 
 

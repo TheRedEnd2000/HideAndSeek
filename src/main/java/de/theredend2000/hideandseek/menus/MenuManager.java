@@ -2,6 +2,7 @@ package de.theredend2000.hideandseek.menus;
 
 import de.theredend2000.hideandseek.Main;
 import de.theredend2000.hideandseek.util.ItemBuilder;
+import de.theredend2000.hideandseek.voting.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -31,7 +33,7 @@ public class MenuManager {
         mapInventory.setItem(4, new ItemBuilder(Material.BOOK).setDisplayname("§e§lMap Selector").build());
         mapInventory.setItem(8, new ItemBuilder(Material.TARGET).setDisplayname("§7Page §61 §7of §610").build());
         mapInventory.setItem(45, new ItemBuilder(Material.ARROW).setDisplayname("§7Back").build());
-        mapInventory.setItem(53, new ItemBuilder(Material.ARROW).setDisplayname("§7Next").build());
+        mapInventory.setItem(53, new ItemBuilder(Material.ARROW).setDisplayname("§7Next").setLocalizedName("next").build());
         mapInventory.setItem(50, new ItemBuilder(Material.OAK_SIGN).setDisplayname("§3Search Map").setLore("§2Click here to search for a Map.").setLocalizedName("search").build());
         if(plugin.yaml.contains("lobby") && plugin.yaml.contains("end")) {
             mapInventory.setItem(48, new ItemBuilder(Material.LAPIS_BLOCK).setDisplayname("§5Setup Lobby and End Location").setLore("§7Click to open.","","§a✔ COMPLETE").setLocalizedName("lobby/end").build());
@@ -41,7 +43,11 @@ public class MenuManager {
         if(plugin.yaml.contains("Arenas")) {
             for (String maps : plugin.yaml.getConfigurationSection("Arenas.").getKeys(false)) {
                 String author = plugin.yaml.getString("Arenas." + maps + ".Builder");
+                if (mapInventory.getItem(43) == null) {
                     mapInventory.addItem(new ItemBuilder(Material.PAPER).setDisplayname("§5§l" + maps).setLore("", "§7Builder: §6" + author, "", "§7Finished: §6§l" + plugin.yaml.getBoolean("Arenas." + maps + ".isFinished"), "§2LEFT-CLICK §7Select this Map and Open Options", "§2RIGHT-CLICK §7Delete the Map").build());
+                } else {
+                    Bukkit.getConsoleSender().sendMessage("Map added to page 2: " + maps);
+                }
             }
         }else
             mapInventory.setItem(22, new ItemBuilder(Material.RED_STAINED_GLASS_PANE).setDisplayname("§4No Maps").setLore("§2Click the emerald block to create one.").build());

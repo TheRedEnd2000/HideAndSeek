@@ -74,6 +74,11 @@ public class MenuListener implements Listener {
                                 player.sendMessage(Main.PREFIX+"§7Type Map Name in Chat. Type '§4cancel§7' to cancel.");
                                 searchPlayer.add(player);
                                 break;
+                            case "next":
+                                player.closeInventory();
+                                player.sendMessage(Main.PREFIX+"§7Type Map Name in Chat. Type '§4cancel§7' to cancel.");
+                                searchPlayer.add(player);
+                                break;
                             case "settings":
                                 player.closeInventory();
                                 plugin.getMenuManager().createSettingsInventory(player);
@@ -192,7 +197,7 @@ public class MenuListener implements Listener {
             }
             if(event.getMessage().contains(".")){
                 plugin.getMenuManager().createNewMapInventory(event.getPlayer());
-                event.getPlayer().sendMessage(Main.PREFIX+"§cThe map name can't contains §6'.'§c!");
+                event.getPlayer().sendMessage(Main.PREFIX+"§cThe map name can't contains §6dots '.'§c!");
                 return;
             }
             plugin.yaml.set("CreateMaps."+event.getPlayer().getName()+".Name", event.getMessage());
