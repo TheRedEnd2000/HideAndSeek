@@ -1,0 +1,33 @@
+# Shows the version of the config
+# NOTE: DO NOT CHANGE THIS!
+config-version: 1.1
+
+# If set to 'true', a notification and a download link will be printed on both console and in-game when a new update is available.
+# default: true
+check-for-updates: true
+
+
+# Messages file language
+# Currently available: en [English] | de [Deutsch]
+message-lang: en
+
+
+game:
+
+  # Configure the firework at the end of the game
+  # default: true
+  end-firework:
+    enabled: true
+    power: 1 # How height the fireworks fly
+    count: 5 # How many fireworks should spawn per second
+
+
+  signs:
+    enabled: true
+    needPermission: false
+    permission: hideandseek.signs
+    signFormat:
+      - "&8[&9HideAndSeek&8]"
+      - "&2%arena%"
+      - "&b%current_players%&f/&b%max_players% &f- &2%status%"
+      - "&a%join_status%"

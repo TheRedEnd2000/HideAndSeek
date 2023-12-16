@@ -1,0 +1,12 @@
+name: HideAndSeek
+version: 1.0
+main: de.theredend2000.hideandseek.Main
+api-version: 1.13
+softdepend: [PlaceholderAPI]
+commands:
+  hideandseek:
+    aliases:
+      - has
+      - hide
+      - hideseek
+      - hideaseek
